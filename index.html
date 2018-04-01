@@ -83,7 +83,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>We have obervations:<br>$$V = {\mathbf{v}^1, …, \mathbf{v}^N}$$<br>where dim($\mathbf{v}$)=$D$. </p>
+        <p><script src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js"></script><br>We have obervations:<br>$$V = {\mathbf{v}^1, …, \mathbf{v}^N}$$<br>where dim($\mathbf{v}$)=$D$. </p>
 <p>Our goal is to a find lower dimensional probabilistic description of this data. If data lies close to a <em>H</em>-dimensional <strong>linear</strong> subspace, we can approximate the data to the subspace and model the discrepancy with Gaussian noise. Mathematically, the FA model generates an observation <strong>v</strong> according to:<br>$$\mathbf{v} = \mathbf{F} \bf{h} + \mathbf{c} + \vec \epsilon$$<br>where the noise $\vec{\epsilon}$ is Gaussian distributed:<br>$$\vec{\epsilon} \sim N(\vec{\epsilon}\mid \mathbf 0, \mathbf \Psi)$$</p>
 <p>The constant <strong>c</strong> sets the origin of the coordinate system. The $D\times H$ factor loading matrix $\mathbf F$ plays a similar role as the basis matrix in PCA. The difference between PCA and FA is in the choice of $\mathbf \Psi$.</p>
 <p>Probabilistic PCA:<br>$$\mathbf \Psi = \sigma^2 \mathbf I$$<br>Factor Analysis:<br>$$\mathbf \Psi = diag(\psi_1,…,\psi_D)$$</p>
