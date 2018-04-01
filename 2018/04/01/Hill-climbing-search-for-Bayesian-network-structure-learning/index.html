@@ -5,14 +5,19 @@
   
 
   
-  <title>Zhensong Yan&#39;s Blog</title>
+  <title>Hill-climbing search for Bayesian network structure learning | Zhensong Yan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zhensong Yan&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog. Hill">
+<meta name="keywords" content="machine learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hill-climbing search for Bayesian network structure learning">
+<meta property="og:url" content="http://yoursite.com/2018/04/01/Hill-climbing-search-for-Bayesian-network-structure-learning/index.html">
 <meta property="og:site_name" content="Zhensong Yan&#39;s Blog">
+<meta property="og:description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog. Hill">
+<meta property="og:updated_time" content="2018-04-01T21:21:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zhensong Yan&#39;s Blog">
+<meta name="twitter:title" content="Hill-climbing search for Bayesian network structure learning">
+<meta name="twitter:description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog. Hill">
   
     <link rel="alternate" href="/atom.xml" title="Zhensong Yan&#39;s Blog" type="application/atom+xml">
   
@@ -59,9 +64,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-Hill-climbing-search-for-Bayesian-network-structure-learning" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Hill-climbing-search-for-Bayesian-network-structure-learning" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/04/01/Hill-climbing-search-for-Bayesian-network-structure-learning/" class="article-date">
   <time datetime="2018-04-01T20:16:57.000Z" itemprop="datePublished">2018-04-01</time>
@@ -74,8 +77,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/01/Hill-climbing-search-for-Bayesian-network-structure-learning/">Hill-climbing search for Bayesian network structure learning</a>
+    <h1 class="article-title" itemprop="name">
+      Hill-climbing search for Bayesian network structure learning
     </h1>
   
 
@@ -109,59 +112,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Factor-Analysis" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/26/Factor-Analysis/" class="article-date">
-  <time datetime="2018-03-26T14:43:22.000Z" itemprop="datePublished">2018-03-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/26/Factor-Analysis/">Factor Analysis</a>
-    </h1>
+    <a href="/2018/03/26/Factor-Analysis/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Factor Analysis</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>We have obervations:<br>$$V = {\mathbf{v}^1, …, \mathbf{v}^N}$$<br>where dim($\mathbf{v}$)=$D$. </p>
-<p>Our goal is to a find lower dimensional probabilistic description of this data. If data lies close to a <em>H</em>-dimensional <strong>linear</strong> subspace, we can approximate the data to the subspace and model the discrepancy with Gaussian noise. Mathematically, the FA model generates an observation <strong>v</strong> according to:<br>$$\mathbf{v} = \mathbf{F} \bf{h} + \mathbf{c} + \vec \epsilon$$<br>where the noise $\vec{\epsilon}$ is Gaussian distributed:<br>$$\vec{\epsilon} \sim N(\vec{\epsilon}\mid \mathbf 0, \mathbf \Psi)$$</p>
-<p>The constant <strong>c</strong> sets the origin of the coordinate system. The $D\times H$ factor loading matrix $\mathbf F$ plays a similar role as the basis matrix in PCA. The difference between PCA and FA is in the choice of $\mathbf \Psi$.</p>
-<p>Probabilistic PCA:<br>$$\mathbf \Psi = \sigma^2 \mathbf I$$<br>Factor Analysis:<br>$$\mathbf \Psi = diag(\psi_1,…,\psi_D)$$</p>
-<p>Factor analysis has a richer description of the noise $\mathbf \Psi$.</p>
-<p>Given $\mathbf h$, $\mathbf v$ is Gaussian distributed:<br>$$p(\mathbf v \mid \mathbf h) = N(\mathbf v; \mathbf F \mathbf h + \mathbf c, \mathbf \Psi) \propto exp(-\frac{1}{2} (\mathbf v - \mathbf{Fh} - \mathbf c)^T \mathbf{\Psi}^{-1} (\mathbf v - \mathbf{Fh} - \mathbf c))$$<br>The equation above is the likelihood of $\mathbf h$. To complete the Bayesian model, we need the prior on $\mathbf h$, $p(\mathbf h)$, so that we can write down the posterior $p(\mathbf h \mid \mathbf v) \propto p(\mathbf h) p(\mathbf v \mid \mathbf h)$.</p>
-<p>A convenient choice for prior is a Gaussian:<br>$$p(\mathbf h) = N(\mathbf h; \mathbf 0, \mathbf I) \propto exp(-\mathbf h^T \mathbf h / 2)$$</p>
-<p>In this way,<br>$$p(\mathbf v) = \int p(\mathbf v| \mathbf h)p(\mathbf h)d\mathbf h$$<br>$p(\mathbf v|\mathbf h)$ and $p(\mathbf h)$ are both Gaussian distributions, so their product is also Gaussian distribution. The marginal of a joint Gaussian distribution is also a Gaussian, so $p(\mathbf v)$ is Gaussian. To determine a Gaussian, we only need the mean and the covariance.<br>$$E[\mathbf v] = E[\mathbf{F} \mathbf{h} + \mathbf{c} + \vec \epsilon] = E[\mathbf {Fh}] + E[\mathbf c] + E[\vec \epsilon] = \mathbf c$$<br>$$cov[\mathbf v] = cov[\mathbf{Fh} + \mathbf{c} + \vec \epsilon] = cov[\mathbf{Fh}] + cov[\mathbf c] + cov[\vec \epsilon] = \mathbf{FF}^T + \mathbf \Psi$$</p>
-<p>So $p(\mathbf v) = N(\mathbf v; \mathbf c, \mathbf{FF}^T + \mathbf \Psi)$</p>
-<p>We can use correlated latent variables by letting the covariance of $\mathbf h$ be $\mathbf C$ (a full-covariance matrix) rather than $\mathbf I$. This seems like more expressive because there are more parameters. However, it is acutally the same as the one above, because the correlated part will be absorbed into the loading matrix $\mathbf F$. Proof is as follows:</p>
-<p>Assume the new model is:<br>$$p(\mathbf h) = N(\mathbf h; \mathbf 0, \mathbf C) \ p(\mathbf v \mid \mathbf h) = N(\mathbf v; \mathbf F \mathbf h + \mathbf c, \mathbf \Psi)$$</p>
-<p>$cov[\mathbf v]= \mathbf{FCF}^T + \mathbf \Psi$</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/26/Factor-Analysis/" data-id="cjfhba90k0000lmyr0w01mwg2" class="article-share-link">Teilen</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
 
 </section>
         
