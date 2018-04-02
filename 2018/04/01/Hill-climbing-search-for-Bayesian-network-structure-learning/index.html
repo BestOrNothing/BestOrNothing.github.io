@@ -7,17 +7,17 @@
   
   <title>Hill-climbing search for Bayesian network structure learning | Zhensong Yan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog. Hill">
+  <meta name="description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog. Theo">
 <meta name="keywords" content="machine learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hill-climbing search for Bayesian network structure learning">
 <meta property="og:url" content="http://yoursite.com/2018/04/01/Hill-climbing-search-for-Bayesian-network-structure-learning/index.html">
 <meta property="og:site_name" content="Zhensong Yan&#39;s Blog">
-<meta property="og:description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog. Hill">
-<meta property="og:updated_time" content="2018-04-01T21:21:17.000Z">
+<meta property="og:description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog. Theo">
+<meta property="og:updated_time" content="2018-04-02T19:40:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hill-climbing search for Bayesian network structure learning">
-<meta name="twitter:description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog. Hill">
+<meta name="twitter:description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog. Theo">
   
     <link rel="alternate" href="/atom.xml" title="Zhensong Yan&#39;s Blog" type="application/atom+xml">
   
@@ -87,6 +87,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog.</p>
+<h1 id="Theory-Refinement-on-Bayesian-Networks"><a href="#Theory-Refinement-on-Bayesian-Networks" class="headerlink" title="Theory Refinement on Bayesian Networks"></a>Theory Refinement on Bayesian Networks</h1><p>To access all alternative parent set $\Pi_x\in P_x$ efficiently, they are stroed in a lattice structure where subset and superset parent sets are linked together in a web, denoted the parent lattice for x. Only those parent sets with significant posterior probabilities are strored and linked. </p>
+<p>The nodes in the lattice are labeled as alive, dead or asleep. Alive nodes represent the set of “reasonable” alternatives having high posteriors, and correspond to those parent sets in $P_x$. Dead nodes exist in the lattice as dead-end markers in the search space. They have been explored and forever determined as unreasonable and nor to further expand.</p>
 <h1 id="Hill-climbing-search-HCS"><a href="#Hill-climbing-search-HCS" class="headerlink" title="Hill-climbing search (HCS)"></a>Hill-climbing search (HCS)</h1><p>Hill-climbing search methods have three components:</p>
 <ul>
 <li>Objective function (aka. score function) denoted by $S(M,D)$, where $M$ is a model, and $D$ is a dataset. This function measures the quality of a given model.</li>
@@ -94,12 +96,13 @@
 <li>a domain of legel models denoted by $MD$.</li>
 </ul>
 <p>From its name we can see its idea. The search process is just like a hill-climbing process. In every step of search, we take the step that has maximal score (i.e. the step that improves the objective function most).</p>
-<p>If explaining hill-climbing search in an more academic way, the idea is that at time step $t$, the model is $M_t$, and the next model is $M_{t+1} = argmax_M op^i(M,A)$, where $M\in MD$.</p>
+<p>If explaining hill-climbing search in an more academic way, the idea is that at time step $t$, the model is $M_t$, and the next model is $M_{t+1} = argmax_M op^i(M,A)$, where $M\in MD$. The set of the models which can be reached in one step is call neighbour denoted by $N(M)$.</p>
 <h1 id="Two-heuristics-that-transform-batch-HCS-to-incremental-HCS"><a href="#Two-heuristics-that-transform-batch-HCS-to-incremental-HCS" class="headerlink" title="Two heuristics that transform batch HCS to incremental HCS"></a>Two heuristics that transform batch HCS to incremental HCS</h1><h2 id="Why-incremental"><a href="#Why-incremental" class="headerlink" title="Why incremental?"></a>Why incremental?</h2><p>Why do we need incremental method rather than batch algorithm?</p>
 <p>In real word, your data is updated every day, so you need to do incremental learning when new data is available. </p>
-<h2 id="Hypothesis"><a href="#Hypothesis" class="headerlink" title="Hypothesis"></a>Hypothesis</h2><p>To apply this heuristic, we need to assume the objective function is continues, so that if two datasets are similar, their score will not be very different.</p>
+<h2 id="Assumption"><a href="#Assumption" class="headerlink" title="Assumption"></a>Assumption</h2><p>To apply these heuristics, we need to assume the objective function is continuous, so that if two datasets are similar, their score will not be very different.</p>
 <h2 id="Traversal-Operators-in-Correct-Order-TOCO-heuristic"><a href="#Traversal-Operators-in-Correct-Order-TOCO-heuristic" class="headerlink" title="Traversal Operators in Correct Order (TOCO) heuristic"></a>Traversal Operators in Correct Order (TOCO) heuristic</h2><p>The idea of this heuristic is to only update the model when the order of the sequence of executed operators will be changed. If the order will be changed, it means the new data has significant influence on the objective function. In order to check if the order changes, we need to compute the values of the objective function, so we have to keep the sequence of operators and recompute them using new dataset $D_t={D_{t-1}\cup D’}$, where $D’$ is the new data. </p>
-<h2 id="Reduced-Search-Space-RSS-heuristic"><a href="#Reduced-Search-Space-RSS-heuristic" class="headerlink" title="Reduced Search Space (RSS) heuristic"></a>Reduced Search Space (RSS) heuristic</h2><p>The idea of this heuristic is to reduce the search space by avoiding to explore those parts of the space where low quality models were found during former search steps.</p>
+<h2 id="Reduced-Search-Space-RSS-heuristic"><a href="#Reduced-Search-Space-RSS-heuristic" class="headerlink" title="Reduced Search Space (RSS) heuristic"></a>Reduced Search Space (RSS) heuristic</h2><p>The idea of this heuristic is to reduce the search space by avoiding to explore those parts of the space where low quality models were found during former search steps. </p>
+<p>RSS stores the nRSS operators and arguments pairs which are closest to the best one into a set $B$. In the next search steps, when new data are available, RSS restricts the search to the models of the neighborhood obtained with these pairs, namely $\mathbf{OpA}<em>{N(M)}\cap B$, where $\mathbf{OpA}</em>{N(M)}$ means the pairs of operators and arguments which can reach $N(M)$. </p>
 
       
     </div>
