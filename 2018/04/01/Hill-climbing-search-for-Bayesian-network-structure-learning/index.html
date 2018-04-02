@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/04/01/Hill-climbing-search-for-Bayesian-network-structure-learning/index.html">
 <meta property="og:site_name" content="Zhensong Yan&#39;s Blog">
 <meta property="og:description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog. Theo">
-<meta property="og:updated_time" content="2018-04-02T19:40:32.000Z">
+<meta property="og:updated_time" content="2018-04-02T21:07:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hill-climbing search for Bayesian network structure learning">
 <meta name="twitter:description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog. Theo">
@@ -87,16 +87,24 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog.</p>
-<h1 id="Theory-Refinement-on-Bayesian-Networks"><a href="#Theory-Refinement-on-Bayesian-Networks" class="headerlink" title="Theory Refinement on Bayesian Networks"></a>Theory Refinement on Bayesian Networks</h1><p>To access all alternative parent set $\Pi_x\in P_x$ efficiently, they are stroed in a lattice structure where subset and superset parent sets are linked together in a web, denoted the parent lattice for x. Only those parent sets with significant posterior probabilities are strored and linked. </p>
-<p>The nodes in the lattice are labeled as alive, dead or asleep. Alive nodes represent the set of “reasonable” alternatives having high posteriors, and correspond to those parent sets in $P_x$. Dead nodes exist in the lattice as dead-end markers in the search space. They have been explored and forever determined as unreasonable and nor to further expand.</p>
+<h1 id="Theory-Refinement-on-Bayesian-Networks"><a href="#Theory-Refinement-on-Bayesian-Networks" class="headerlink" title="Theory Refinement on Bayesian Networks"></a>Theory Refinement on Bayesian Networks</h1><h2 id="Basic-concepts"><a href="#Basic-concepts" class="headerlink" title="Basic concepts"></a>Basic concepts</h2><p>$E$ means the information an expert gives about the structure of the network. $\prec$ means an ordering of variables. $\Pi_x$ means the set of parents of $x$. $Pr(\Pi\mid \prec,E)=\prod_{x\in X}Pr(\Pi_x\mid\prec,E)$</p>
+<p>Combined Bayesian network: The set of reasonable parent structures and their conditional probability tables and associated statistics.<br>Let $P_x$ denote a set containing sets of reasonable parent variables for the variable $x$. Then the set of reasonable parent structures is given by cartesian product $\otimes_{x\in X}P_x$. </p>
+<p>The posterior on each reasonable parent structure $\Pi$ is:</p>
+<p>$$Pr(\Pi\mid Sample, \prec, E) = \prod_{x\in X} Pr(\Pi_x\mid Sample, \prec, E)$$</p>
+<p>$$Pr(\Pi_x\mid Sample, \prec, E) \propto Pr(\Pi_x \mid \prec, E) \prod_{j\in v(\Pi_x)} \frac{Beta_{m_x}(n_{x=1|j}+\alpha_x,…,n_{x=m_x|j}+\alpha_x)}{Beta_{m_x}(\alpha_x,…,\alpha_x)}$$</p>
+<p>To access all alternative parent set $\Pi_x\in P_x$ efficiently, they are stored in a lattice structure where subset and superset parent sets are linked together in a web, denoted the parent lattice for x. Only those parent sets with significant posterior probabilities are stored and linked. </p>
+<p>The nodes in the lattice are labeled as alive, dead or asleep. <strong>Alive</strong> nodes represent the set of “reasonable” alternatives having high posteriors, and correspond to those parent sets in $P_x$. <strong>Dead</strong> nodes exist in the lattice as dead-end markers in the search space. They have been explored and forever determined as unreasonable and not to further expand. <strong>Asleep</strong> nodes are similar but are only considered unreasonable for now and may be made alive later on.</p>
+<h2 id="Update-combined-network"><a href="#Update-combined-network" class="headerlink" title="Update combined network"></a>Update combined network</h2><p>When new data is available, we need to update the combined network, namely theory refinement.</p>
+<p>In the case that we need to update the combined network within limited time, we can only update the parameters rather than the structure of the network. The parameters refer to the conditional probability tables and associated statistics explained in the last subsection. The structure of the network refers to $\Pi$. Time complexity is $O(P)$.</p>
+<p>If we have additional time, we can update the structure. <strong>To be continued here.</strong></p>
 <h1 id="Hill-climbing-search-HCS"><a href="#Hill-climbing-search-HCS" class="headerlink" title="Hill-climbing search (HCS)"></a>Hill-climbing search (HCS)</h1><p>Hill-climbing search methods have three components:</p>
 <ul>
 <li>Objective function (aka. score function) denoted by $S(M,D)$, where $M$ is a model, and $D$ is a dataset. This function measures the quality of a given model.</li>
-<li>Traverse operators donoted by $OP={op^1,…,op^k}$, every operator takes two arguments, and its return is a new model. $M’=op^i(M,A)$.</li>
-<li>a domain of legel models denoted by $MD$.</li>
+<li>Traverse operators denoted by $OP={op^1,…,op^k}$, every operator takes two arguments, and its return is a new model. $M’=op^i(M,A)$.</li>
+<li>a domain of legal models denoted by $MD$.</li>
 </ul>
 <p>From its name we can see its idea. The search process is just like a hill-climbing process. In every step of search, we take the step that has maximal score (i.e. the step that improves the objective function most).</p>
-<p>If explaining hill-climbing search in an more academic way, the idea is that at time step $t$, the model is $M_t$, and the next model is $M_{t+1} = argmax_M op^i(M,A)$, where $M\in MD$. The set of the models which can be reached in one step is call neighbour denoted by $N(M)$.</p>
+<p>If explaining hill-climbing search in an more academic way, the idea is that at time step $t$, the model is $M_t$, and the next model is $M_{t+1} = argmax_M op^i(M,A)$, where $M\in MD$. The set of the models which can be reached in one step is call neighbor denoted by $N(M)$.</p>
 <h1 id="Two-heuristics-that-transform-batch-HCS-to-incremental-HCS"><a href="#Two-heuristics-that-transform-batch-HCS-to-incremental-HCS" class="headerlink" title="Two heuristics that transform batch HCS to incremental HCS"></a>Two heuristics that transform batch HCS to incremental HCS</h1><h2 id="Why-incremental"><a href="#Why-incremental" class="headerlink" title="Why incremental?"></a>Why incremental?</h2><p>Why do we need incremental method rather than batch algorithm?</p>
 <p>In real word, your data is updated every day, so you need to do incremental learning when new data is available. </p>
 <h2 id="Assumption"><a href="#Assumption" class="headerlink" title="Assumption"></a>Assumption</h2><p>To apply these heuristics, we need to assume the objective function is continuous, so that if two datasets are similar, their score will not be very different.</p>
