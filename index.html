@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Buscar"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,10 +61,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-encrypt" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Hill-climbing-search-for-Bayesian-network-structure-learning" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/04/02/encrypt/" class="article-date">
-  <time datetime="2018-04-02T22:19:39.000Z" itemprop="datePublished">2018-04-02</time>
+    <a href="/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/" class="article-date">
+  <time datetime="2018-04-04T20:16:57.000Z" itemprop="datePublished">2018-04-04</time>
 </a>
     
   </div>
@@ -75,7 +75,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/02/encrypt/">encrypt</a>
+      <a class="article-title" href="/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/">Hill-climbing search for Bayesian network structure learning</a>
     </h1>
   
 
@@ -83,77 +83,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        Welcome to my blog, enter password to read.
+        <p>Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog.<br>
         
           <p class="article-more-link">
-            <a href="/2018/04/02/encrypt/#more">Read More</a>
+            <a href="/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/02/encrypt/" data-id="cjfiswinb000392yrzdo23263" class="article-share-link">Teilen</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Hill-climbing-search-for-Bayesian-network-structure-learning" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/04/01/Hill-climbing-search-for-Bayesian-network-structure-learning/" class="article-date">
-  <time datetime="2018-04-01T20:16:57.000Z" itemprop="datePublished">2018-04-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/01/Hill-climbing-search-for-Bayesian-network-structure-learning/">Hill-climbing search for Bayesian network structure learning</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog.</p>
-<h1 id="Theory-Refinement-on-Bayesian-Networks"><a href="#Theory-Refinement-on-Bayesian-Networks" class="headerlink" title="Theory Refinement on Bayesian Networks"></a>Theory Refinement on Bayesian Networks</h1><h2 id="Basic-concepts"><a href="#Basic-concepts" class="headerlink" title="Basic concepts"></a>Basic concepts</h2><p>$E$ means the information an expert gives about the structure of the network. $\prec$ means an ordering of variables. $\Pi_x$ means the set of parents of $x$. $Pr(\Pi\mid \prec,E)=\prod_{x\in X}Pr(\Pi_x\mid\prec,E)$</p>
-<p>Combined Bayesian network: The set of reasonable parent structures and their conditional probability tables and associated statistics.<br>Let $P_x$ denote a set containing sets of reasonable parent variables for the variable $x$. Then the set of reasonable parent structures is given by cartesian product $\otimes_{x\in X}P_x$. </p>
-<p>The posterior on each reasonable parent structure $\Pi$ is:</p>
-<p>$$Pr(\Pi\mid Sample, \prec, E) = \prod_{x\in X} Pr(\Pi_x\mid Sample, \prec, E)$$</p>
-<p>$$Pr(\Pi_x\mid Sample, \prec, E) \propto Pr(\Pi_x \mid \prec, E) \prod_{j\in v(\Pi_x)} \frac{Beta_{m_x}(n_{x=1|j}+\alpha_x,…,n_{x=m_x|j}+\alpha_x)}{Beta_{m_x}(\alpha_x,…,\alpha_x)}$$</p>
-<p>To access all alternative parent set $\Pi_x\in P_x$ efficiently, they are stored in a lattice structure where subset and superset parent sets are linked together in a web, denoted the parent lattice for x. Only those parent sets with significant posterior probabilities are stored and linked. </p>
-<p>The nodes in the lattice are labeled as alive, dead or asleep. <strong>Alive</strong> nodes represent the set of “reasonable” alternatives having high posteriors, and correspond to those parent sets in $P_x$. <strong>Dead</strong> nodes exist in the lattice as dead-end markers in the search space. They have been explored and forever determined as unreasonable and not to further expand. <strong>Asleep</strong> nodes are similar but are only considered unreasonable for now and may be made alive later on.</p>
-<h2 id="Update-combined-network"><a href="#Update-combined-network" class="headerlink" title="Update combined network"></a>Update combined network</h2><p>When new data is available, we need to update the combined network, namely theory refinement.</p>
-<p>In the case that we need to update the combined network within limited time, we can only update the parameters rather than the structure of the network. The parameters refer to the conditional probability tables and associated statistics explained in the last subsection. The structure of the network refers to $\Pi$. Time complexity is $O(P)$.</p>
-<p>If we have additional time, we can update the structure. <strong>To be continued here.</strong></p>
-<h1 id="Hill-climbing-search-HCS"><a href="#Hill-climbing-search-HCS" class="headerlink" title="Hill-climbing search (HCS)"></a>Hill-climbing search (HCS)</h1><p>Hill-climbing search methods have three components:</p>
-<ul>
-<li>Objective function (aka. score function) denoted by $S(M,D)$, where $M$ is a model, and $D$ is a dataset. This function measures the quality of a given model.</li>
-<li>Traverse operators denoted by $OP={op^1,…,op^k}$, every operator takes two arguments, and its return is a new model. $M’=op^i(M,A)$.</li>
-<li>a domain of legal models denoted by $MD$.</li>
-</ul>
-<p>From its name we can see its idea. The search process is just like a hill-climbing process. In every step of search, we take the step that has maximal score (i.e. the step that improves the objective function most).</p>
-<p>If explaining hill-climbing search in an more academic way, the idea is that at time step $t$, the model is $M_t$, and the next model is $M_{t+1} = argmax_M op^i(M,A)$, where $M\in MD$. The set of the models which can be reached in one step is call neighbor denoted by $N(M)$.</p>
-<h1 id="Two-heuristics-that-transform-batch-HCS-to-incremental-HCS"><a href="#Two-heuristics-that-transform-batch-HCS-to-incremental-HCS" class="headerlink" title="Two heuristics that transform batch HCS to incremental HCS"></a>Two heuristics that transform batch HCS to incremental HCS</h1><h2 id="Why-incremental"><a href="#Why-incremental" class="headerlink" title="Why incremental?"></a>Why incremental?</h2><p>Why do we need incremental method rather than batch algorithm?</p>
-<p>In real word, your data is updated every day, so you need to do incremental learning when new data is available. </p>
-<h2 id="Assumption"><a href="#Assumption" class="headerlink" title="Assumption"></a>Assumption</h2><p>To apply these heuristics, we need to assume the objective function is continuous, so that if two datasets are similar, their score will not be very different.</p>
-<h2 id="Traversal-Operators-in-Correct-Order-TOCO-heuristic"><a href="#Traversal-Operators-in-Correct-Order-TOCO-heuristic" class="headerlink" title="Traversal Operators in Correct Order (TOCO) heuristic"></a>Traversal Operators in Correct Order (TOCO) heuristic</h2><p>The idea of this heuristic is to only update the model when the order of the sequence of executed operators will be changed. If the order will be changed, it means the new data has significant influence on the objective function. In order to check if the order changes, we need to compute the values of the objective function, so we have to keep the sequence of operators and recompute them using new dataset $D_t={D_{t-1}\cup D’}$, where $D’$ is the new data. </p>
-<h2 id="Reduced-Search-Space-RSS-heuristic"><a href="#Reduced-Search-Space-RSS-heuristic" class="headerlink" title="Reduced Search Space (RSS) heuristic"></a>Reduced Search Space (RSS) heuristic</h2><p>The idea of this heuristic is to reduce the search space by avoiding to explore those parts of the space where low quality models were found during former search steps. </p>
-<p>RSS stores the nRSS operators and arguments pairs which are closest to the best one into a set $B$. In the next search steps, when new data are available, RSS restricts the search to the models of the neighborhood obtained with these pairs, namely $\mathbf{OpA}<em>{N(M)}\cap B$, where $\mathbf{OpA}</em>{N(M)}$ means the pairs of operators and arguments which can reach $N(M)$. </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/01/Hill-climbing-search-for-Bayesian-network-structure-learning/" data-id="cjfiswin8000192yrg1v7uooh" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/" data-id="cjfitfg000001dyyr490lnvuf" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/">machine learning</a></li></ul>
@@ -167,8 +106,8 @@
   
     <article id="post-Factor-Analysis" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/03/26/Factor-Analysis/" class="article-date">
-  <time datetime="2018-03-26T14:43:22.000Z" itemprop="datePublished">2018-03-26</time>
+    <a href="/2018/04/03/Factor-Analysis/" class="article-date">
+  <time datetime="2018-04-03T14:43:22.000Z" itemprop="datePublished">2018-04-03</time>
 </a>
     
   </div>
@@ -179,7 +118,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/26/Factor-Analysis/">Factor Analysis</a>
+      <a class="article-title" href="/2018/04/03/Factor-Analysis/">Factor Analysis</a>
     </h1>
   
 
@@ -187,27 +126,61 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>We have obervations:<br>$$V = {\mathbf{v}^1, …, \mathbf{v}^N}$$<br>where dim($\mathbf{v}$)=$D$. </p>
-<p>Our goal is to a find lower dimensional probabilistic description of this data. If data lies close to a <em>H</em>-dimensional <strong>linear</strong> subspace, we can approximate the data to the subspace and model the discrepancy with Gaussian noise. Mathematically, the FA model generates an observation <strong>v</strong> according to:<br>$$\mathbf{v} = \mathbf{F} \bf{h} + \mathbf{c} + \vec \epsilon$$<br>where the noise $\vec{\epsilon}$ is Gaussian distributed:<br>$$\vec{\epsilon} \sim N(\vec{\epsilon}\mid \mathbf 0, \mathbf \Psi)$$</p>
-<p>The constant <strong>c</strong> sets the origin of the coordinate system. The $D\times H$ factor loading matrix $\mathbf F$ plays a similar role as the basis matrix in PCA. The difference between PCA and FA is in the choice of $\mathbf \Psi$.</p>
-<p>Probabilistic PCA:<br>$$\mathbf \Psi = \sigma^2 \mathbf I$$<br>Factor Analysis:<br>$$\mathbf \Psi = diag(\psi_1,…,\psi_D)$$</p>
-<p>Factor analysis has a richer description of the noise $\mathbf \Psi$.</p>
-<p>Given $\mathbf h$, $\mathbf v$ is Gaussian distributed:<br>$$p(\mathbf v \mid \mathbf h) = N(\mathbf v; \mathbf F \mathbf h + \mathbf c, \mathbf \Psi) \propto exp(-\frac{1}{2} (\mathbf v - \mathbf{Fh} - \mathbf c)^T \mathbf{\Psi}^{-1} (\mathbf v - \mathbf{Fh} - \mathbf c))$$<br>The equation above is the likelihood of $\mathbf h$. To complete the Bayesian model, we need the prior on $\mathbf h$, $p(\mathbf h)$, so that we can write down the posterior $p(\mathbf h \mid \mathbf v) \propto p(\mathbf h) p(\mathbf v \mid \mathbf h)$.</p>
-<p>A convenient choice for prior is a Gaussian:<br>$$p(\mathbf h) = N(\mathbf h; \mathbf 0, \mathbf I) \propto exp(-\mathbf h^T \mathbf h / 2)$$</p>
-<p>In this way,<br>$$p(\mathbf v) = \int p(\mathbf v| \mathbf h)p(\mathbf h)d\mathbf h$$<br>$p(\mathbf v|\mathbf h)$ and $p(\mathbf h)$ are both Gaussian distributions, so their product is also Gaussian distribution. The marginal of a joint Gaussian distribution is also a Gaussian, so $p(\mathbf v)$ is Gaussian. To determine a Gaussian, we only need the mean and the covariance.<br>$$E[\mathbf v] = E[\mathbf{F} \mathbf{h} + \mathbf{c} + \vec \epsilon] = E[\mathbf {Fh}] + E[\mathbf c] + E[\vec \epsilon] = \mathbf c$$<br>$$cov[\mathbf v] = cov[\mathbf{Fh} + \mathbf{c} + \vec \epsilon] = cov[\mathbf{Fh}] + cov[\mathbf c] + cov[\vec \epsilon] = \mathbf{FF}^T + \mathbf \Psi$$</p>
-<p>So $p(\mathbf v) = N(\mathbf v; \mathbf c, \mathbf{FF}^T + \mathbf \Psi)$</p>
-<p>We can use correlated latent variables by letting the covariance of $\mathbf h$ be $\mathbf C$ (a full-covariance matrix) rather than $\mathbf I$. This seems like more expressive because there are more parameters. However, it is acutally the same as the one above, because the correlated part will be absorbed into the loading matrix $\mathbf F$. Proof is as follows:</p>
-<p>Assume the new model is:<br>$$p(\mathbf h) = N(\mathbf h; \mathbf 0, \mathbf C) \ p(\mathbf v \mid \mathbf h) = N(\mathbf v; \mathbf F \mathbf h + \mathbf c, \mathbf \Psi)$$</p>
-<p>$cov[\mathbf v]= \mathbf{FCF}^T + \mathbf \Psi$</p>
-
+        <p>In PMR I’ve learnt Factor Analysis, so I will write my understanding in this blog.<br>
+        
+          <p class="article-more-link">
+            <a href="/2018/04/03/Factor-Analysis/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/26/Factor-Analysis/" data-id="cjfiswin4000092yry608lsea" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/03/Factor-Analysis/" data-id="cjfitffzw0000dyyr3hmk8sly" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/">machine learning</a></li></ul>
 
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-timeline" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/02/timeline/" class="article-date">
+  <time datetime="2018-04-02T22:19:39.000Z" itemprop="datePublished">2018-04-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/02/timeline/">Timeline</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        Time line.
+        
+          <p class="article-more-link">
+            <a href="/2018/04/02/timeline/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/02/timeline/" data-id="cjfitfg060003dyyrcp9jg5l6" class="article-share-link">Compartir</a>
+      
+      
     </footer>
   </div>
   
@@ -236,7 +209,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nube de Tags</h3>
     <div class="widget tagcloud">
       <a href="/tags/machine-learning/" style="font-size: 10px;">machine learning</a>
     </div>
@@ -245,9 +218,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archivos</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
     </div>
   </div>
 
@@ -255,20 +228,20 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Posts recientes</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2018/04/02/encrypt/">encrypt</a>
+            <a href="/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/">Hill-climbing search for Bayesian network structure learning</a>
           </li>
         
           <li>
-            <a href="/2018/04/01/Hill-climbing-search-for-Bayesian-network-structure-learning/">Hill-climbing search for Bayesian network structure learning</a>
+            <a href="/2018/04/03/Factor-Analysis/">Factor Analysis</a>
           </li>
         
           <li>
-            <a href="/2018/03/26/Factor-Analysis/">Factor Analysis</a>
+            <a href="/2018/04/02/timeline/">Timeline</a>
           </li>
         
       </ul>
@@ -284,7 +257,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2018 Zhensong Yan<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Construido por <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

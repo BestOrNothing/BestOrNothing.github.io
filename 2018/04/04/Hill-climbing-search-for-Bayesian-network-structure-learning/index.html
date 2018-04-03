@@ -7,17 +7,17 @@
   
   <title>Hill-climbing search for Bayesian network structure learning | Zhensong Yan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog. Theo">
+  <meta name="description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog.">
 <meta name="keywords" content="machine learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hill-climbing search for Bayesian network structure learning">
-<meta property="og:url" content="http://yoursite.com/2018/04/01/Hill-climbing-search-for-Bayesian-network-structure-learning/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/index.html">
 <meta property="og:site_name" content="Zhensong Yan&#39;s Blog">
-<meta property="og:description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog. Theo">
-<meta property="og:updated_time" content="2018-04-02T21:07:34.000Z">
+<meta property="og:description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog.">
+<meta property="og:updated_time" content="2018-04-03T10:46:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hill-climbing search for Bayesian network structure learning">
-<meta name="twitter:description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog. Theo">
+<meta name="twitter:description" content="Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog.">
   
     <link rel="alternate" href="/atom.xml" title="Zhensong Yan&#39;s Blog" type="application/atom+xml">
   
@@ -53,9 +53,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Buscar"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -66,8 +66,8 @@
       <div class="outer">
         <section id="main"><article id="post-Hill-climbing-search-for-Bayesian-network-structure-learning" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/04/01/Hill-climbing-search-for-Bayesian-network-structure-learning/" class="article-date">
-  <time datetime="2018-04-01T20:16:57.000Z" itemprop="datePublished">2018-04-01</time>
+    <a href="/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/" class="article-date">
+  <time datetime="2018-04-04T20:16:57.000Z" itemprop="datePublished">2018-04-04</time>
 </a>
     
   </div>
@@ -86,8 +86,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog.</p>
-<h1 id="Theory-Refinement-on-Bayesian-Networks"><a href="#Theory-Refinement-on-Bayesian-Networks" class="headerlink" title="Theory Refinement on Bayesian Networks"></a>Theory Refinement on Bayesian Networks</h1><h2 id="Basic-concepts"><a href="#Basic-concepts" class="headerlink" title="Basic concepts"></a>Basic concepts</h2><p>$E$ means the information an expert gives about the structure of the network. $\prec$ means an ordering of variables. $\Pi_x$ means the set of parents of $x$. $Pr(\Pi\mid \prec,E)=\prod_{x\in X}Pr(\Pi_x\mid\prec,E)$</p>
+        <p>Recently I’m reading papers about incremental Bayesian network structure learning algorithm, so as to do my master dissertation. I therefore write my understanding of the algorithms in this blog.<br><a id="more"></a></p>
+<h1 id="Theory-Refinement-on-Bayesian-Networks"><a href="#Theory-Refinement-on-Bayesian-Networks" class="headerlink" title="Theory Refinement on Bayesian Networks"></a>Theory Refinement on Bayesian Networks</h1><p>This section is my notes of <a href="https://arxiv.org/pdf/1303.5709.pdf" target="_blank" rel="noopener"><em>Theory Refinement on Bayesian Networks</em></a>.</p>
+<h2 id="Basic-concepts"><a href="#Basic-concepts" class="headerlink" title="Basic concepts"></a>Basic concepts</h2><p>$E$ means the information an expert gives about the structure of the network. $\prec$ means an ordering of variables. $\Pi_x$ means the set of parents of $x$. $Pr(\Pi\mid \prec,E)=\prod_{x\in X}Pr(\Pi_x\mid\prec,E)$</p>
 <p>Combined Bayesian network: The set of reasonable parent structures and their conditional probability tables and associated statistics.<br>Let $P_x$ denote a set containing sets of reasonable parent variables for the variable $x$. Then the set of reasonable parent structures is given by cartesian product $\otimes_{x\in X}P_x$. </p>
 <p>The posterior on each reasonable parent structure $\Pi$ is:</p>
 <p>$$Pr(\Pi\mid Sample, \prec, E) = \prod_{x\in X} Pr(\Pi_x\mid Sample, \prec, E)$$</p>
@@ -96,7 +97,7 @@
 <p>The nodes in the lattice are labeled as alive, dead or asleep. <strong>Alive</strong> nodes represent the set of “reasonable” alternatives having high posteriors, and correspond to those parent sets in $P_x$. <strong>Dead</strong> nodes exist in the lattice as dead-end markers in the search space. They have been explored and forever determined as unreasonable and not to further expand. <strong>Asleep</strong> nodes are similar but are only considered unreasonable for now and may be made alive later on.</p>
 <h2 id="Update-combined-network"><a href="#Update-combined-network" class="headerlink" title="Update combined network"></a>Update combined network</h2><p>When new data is available, we need to update the combined network, namely theory refinement.</p>
 <p>In the case that we need to update the combined network within limited time, we can only update the parameters rather than the structure of the network. The parameters refer to the conditional probability tables and associated statistics explained in the last subsection. The structure of the network refers to $\Pi$. Time complexity is $O(P)$.</p>
-<p>If we have additional time, we can update the structure. <strong>To be continued here.</strong></p>
+<p>If we have additional time, we can update the structure. We firstly introduce a batch beam search algorithm. We have three parameters $C,D$ and $E$ such that $1&gt;C&gt;D&gt;E$. Let $BP$ denote the best posterior during the search process. In the lattice, the nodes with posterior less than $E\times BP$ are labeled as dead. The nodes with posterior greater than $D\times BP$ are open, which means they will be searched and expanded. The nodes with posterior greater than $C\times BP$ are labeled as alive. The remaining nodes are labeled as asleep.</p>
 <h1 id="Hill-climbing-search-HCS"><a href="#Hill-climbing-search-HCS" class="headerlink" title="Hill-climbing search (HCS)"></a>Hill-climbing search (HCS)</h1><p>Hill-climbing search methods have three components:</p>
 <ul>
 <li>Objective function (aka. score function) denoted by $S(M,D)$, where $M$ is a model, and $D$ is a dataset. This function measures the quality of a given model.</li>
@@ -115,7 +116,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/01/Hill-climbing-search-for-Bayesian-network-structure-learning/" data-id="cjfiswin8000192yrg1v7uooh" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/" data-id="cjfitfg000001dyyr490lnvuf" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/">machine learning</a></li></ul>
@@ -126,18 +127,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/04/02/encrypt/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
-      <div class="article-nav-title">
-        
-          encrypt
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/03/26/Factor-Analysis/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
+    <a href="/2018/04/03/Factor-Analysis/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Viejo</strong>
       <div class="article-nav-title">Factor Analysis</div>
     </a>
   
@@ -165,7 +157,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nube de Tags</h3>
     <div class="widget tagcloud">
       <a href="/tags/machine-learning/" style="font-size: 10px;">machine learning</a>
     </div>
@@ -174,9 +166,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archivos</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
     </div>
   </div>
 
@@ -184,20 +176,20 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Posts recientes</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2018/04/02/encrypt/">encrypt</a>
+            <a href="/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/">Hill-climbing search for Bayesian network structure learning</a>
           </li>
         
           <li>
-            <a href="/2018/04/01/Hill-climbing-search-for-Bayesian-network-structure-learning/">Hill-climbing search for Bayesian network structure learning</a>
+            <a href="/2018/04/03/Factor-Analysis/">Factor Analysis</a>
           </li>
         
           <li>
-            <a href="/2018/03/26/Factor-Analysis/">Factor Analysis</a>
+            <a href="/2018/04/02/timeline/">Timeline</a>
           </li>
         
       </ul>
@@ -213,7 +205,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2018 Zhensong Yan<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Construido por <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
