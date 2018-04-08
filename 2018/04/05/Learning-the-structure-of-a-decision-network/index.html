@@ -5,18 +5,18 @@
   
 
   
-  <title>Timeline | Zhensong Yan&#39;s Blog</title>
+  <title>Learning the structure of a decision network | Zhensong Yan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Time line.">
+  <meta name="description" content="My master dissertation is learning the structure of a decision network, so I write my understanding here about it.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Timeline">
-<meta property="og:url" content="http://yoursite.com/2018/04/02/timeline/index.html">
+<meta property="og:title" content="Learning the structure of a decision network">
+<meta property="og:url" content="http://yoursite.com/2018/04/05/Learning-the-structure-of-a-decision-network/index.html">
 <meta property="og:site_name" content="Zhensong Yan&#39;s Blog">
-<meta property="og:description" content="Time line.">
-<meta property="og:updated_time" content="2018-04-08T21:52:50.000Z">
+<meta property="og:description" content="My master dissertation is learning the structure of a decision network, so I write my understanding here about it.">
+<meta property="og:updated_time" content="2018-04-05T20:48:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Timeline">
-<meta name="twitter:description" content="Time line.">
+<meta name="twitter:title" content="Learning the structure of a decision network">
+<meta name="twitter:description" content="My master dissertation is learning the structure of a decision network, so I write my understanding here about it.">
   
     <link rel="alternate" href="/atom.xml" title="Zhensong Yan&#39;s Blog" type="application/atom+xml">
   
@@ -63,10 +63,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-timeline" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Learning-the-structure-of-a-decision-network" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/04/02/timeline/" class="article-date">
-  <time datetime="2018-04-02T22:19:39.000Z" itemprop="datePublished">2018-04-02</time>
+    <a href="/2018/04/05/Learning-the-structure-of-a-decision-network/" class="article-date">
+  <time datetime="2018-04-05T11:20:12.000Z" itemprop="datePublished">2018-04-05</time>
 </a>
     
   </div>
@@ -77,7 +77,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Timeline
+      Learning the structure of a decision network
     </h1>
   
 
@@ -85,11 +85,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" Enter password to read. "/> <label for="pass"> Enter password to read. </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> U2FsdGVkX19FNz9/vJNgzteOjB10Vzryi0fKoJrS7aM= </div>
+        <p>My master dissertation is learning the structure of a decision network, so I write my understanding here about it.</p>
+<a id="more"></a>
+<h1 id="Decision-network"><a href="#Decision-network" class="headerlink" title="Decision network"></a>Decision network</h1><p>First of all, we need to know what is a decision network.<br>A decision network is a graphical representation of a finite sequential decision problem. Decision networks extend belief networks to include decision variables and utility. In particular, a decision network is a directed acyclic graph with <em>chance</em> nodes, <em>decision</em> nodes and a <em>utility</em> node.</p>
+<ul>
+<li><strong>Decision nodes</strong>, drawn as rectangles, represent decision variables. The agent gets to choose a value for each decision variable. </li>
+<li><strong>Chance nodes</strong>, drawn as ovals, represent random variables. These are the same as the nodes in a belief network. Each chance node has an associated domain and a conditional probability of the variable, given its parents.</li>
+<li>A <strong>utility node</strong>, drawn as a diamond, represents the utility. The parents of the utility node are the variables on which the utility depends. Botch chance nodes and decision nodes can be parents of the utility node. </li>
+</ul>
+<p>Note that each chance variable and each decision variable has an associated domain, but there is no domain associated with the utility node.</p>
+<h1 id="Adapt-Bayesian-networks-learning-algorithm-to-decision-networks"><a href="#Adapt-Bayesian-networks-learning-algorithm-to-decision-networks" class="headerlink" title="Adapt Bayesian networks learning algorithm to decision networks"></a>Adapt Bayesian networks learning algorithm to decision networks</h1><p>In the last post, I introduced two Bayesian networks learning methods.<br>Because a decision network can be seen as a composition of a Bayesian network and a utility function, we can adapt learning methods for Bayesian networks to decision networks.<br>For Buntines’s method, Innes et. al (2018) introduces a method to adapt it to decision networks. They do it in two ways. Firstly, Buntine’s model assumes that the total ordering on variables is known, but in single-stage learning task the total ordering is hidden. They therefore greedily search over the space of total orderings and use integer linear programming at each step to find a most likely causal structure, which is a valid DN. Secondly, as the agent’s vocabulary of random variables expands, we need to prived new probability distributions over the larger set of possible parent sets.</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p>Innes, C., Lascarides, A., Albrecht, S. V., Ramamoorthy, S., &amp; Rosman, B. (2018). Reasoning about Unforeseen Possibilities During Policy Learning. arXiv preprint arXiv:1801.03331.</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/02/timeline/" data-id="cjfp8jovz0003vvyrd2yl0u36" class="article-share-link">Compartir</a>
+      <a data-url="http://yoursite.com/2018/04/05/Learning-the-structure-of-a-decision-network/" data-id="cjfp8jow10004vvyrbmzctfh0" class="article-share-link">Compartir</a>
       
       
     </footer>
@@ -98,15 +109,20 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/04/03/Factor-Analysis/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/04/05/Anime/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Nuevo</strong>
       <div class="article-nav-title">
         
-          Factor Analysis
+          Anime
         
       </div>
     </a>
   
+  
+    <a href="/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Viejo</strong>
+      <div class="article-nav-title">Hill-climbing search for Bayesian network structure learning</div>
+    </a>
   
 </nav>
 
