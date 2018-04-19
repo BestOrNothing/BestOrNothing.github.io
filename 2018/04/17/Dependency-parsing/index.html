@@ -5,19 +5,18 @@
   
 
   
-  <title>Factor Analysis | Zhensong Yan&#39;s Blog</title>
+  <title>Dependency parsing | Zhensong Yan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="In PMR I’ve learnt Factor Analysis, so I will write my understanding in this blog.">
-<meta name="keywords" content="machine learning">
+  <meta name="description" content="My notes of dependency parsing from NLU course.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Factor Analysis">
-<meta property="og:url" content="http://yoursite.com/2018/04/03/Factor-Analysis/index.html">
+<meta property="og:title" content="Dependency parsing">
+<meta property="og:url" content="http://yoursite.com/2018/04/17/Dependency-parsing/index.html">
 <meta property="og:site_name" content="Zhensong Yan&#39;s Blog">
-<meta property="og:description" content="In PMR I’ve learnt Factor Analysis, so I will write my understanding in this blog.">
-<meta property="og:updated_time" content="2018-04-02T22:42:54.000Z">
+<meta property="og:description" content="My notes of dependency parsing from NLU course.">
+<meta property="og:updated_time" content="2018-04-17T20:58:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Factor Analysis">
-<meta name="twitter:description" content="In PMR I’ve learnt Factor Analysis, so I will write my understanding in this blog.">
+<meta name="twitter:title" content="Dependency parsing">
+<meta name="twitter:description" content="My notes of dependency parsing from NLU course.">
   
     <link rel="alternate" href="/atom.xml" title="Zhensong Yan&#39;s Blog" type="application/atom+xml">
   
@@ -64,10 +63,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Factor-Analysis" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Dependency-parsing" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/04/03/Factor-Analysis/" class="article-date">
-  <time datetime="2018-04-03T14:43:22.000Z" itemprop="datePublished">2018-04-03</time>
+    <a href="/2018/04/17/Dependency-parsing/" class="article-date">
+  <time datetime="2018-04-17T19:24:07.000Z" itemprop="datePublished">2018-04-17</time>
 </a>
     
   </div>
@@ -78,7 +77,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Factor Analysis
+      Dependency parsing
     </h1>
   
 
@@ -86,47 +85,45 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>In PMR I’ve learnt Factor Analysis, so I will write my understanding in this blog.<br><a id="more"></a></p>
-<p>We have obervations:<br>$$V = {\mathbf{v}^1, …, \mathbf{v}^N}$$<br>where dim($\mathbf{v}$)=$D$. </p>
-<p>Our goal is to a find lower dimensional probabilistic description of this data. If data lies close to a <em>H</em>-dimensional <strong>linear</strong> subspace, we can approximate the data to the subspace and model the discrepancy with Gaussian noise. Mathematically, the FA model generates an observation <strong>v</strong> according to:<br>$$\mathbf{v} = \mathbf{F} \bf{h} + \mathbf{c} + \vec \epsilon$$<br>where the noise $\vec{\epsilon}$ is Gaussian distributed:<br>$$\vec{\epsilon} \sim N(\vec{\epsilon}\mid \mathbf 0, \mathbf \Psi)$$</p>
-<p>The constant <strong>c</strong> sets the origin of the coordinate system. The $D\times H$ factor loading matrix $\mathbf F$ plays a similar role as the basis matrix in PCA. The difference between PCA and FA is in the choice of $\mathbf \Psi$.</p>
-<p>Probabilistic PCA:<br>$$\mathbf \Psi = \sigma^2 \mathbf I$$<br>Factor Analysis:<br>$$\mathbf \Psi = diag(\psi_1,…,\psi_D)$$</p>
-<p>Factor analysis has a richer description of the noise $\mathbf \Psi$.</p>
-<p>Given $\mathbf h$, $\mathbf v$ is Gaussian distributed:<br>$$p(\mathbf v \mid \mathbf h) = N(\mathbf v; \mathbf F \mathbf h + \mathbf c, \mathbf \Psi) \propto exp(-\frac{1}{2} (\mathbf v - \mathbf{Fh} - \mathbf c)^T \mathbf{\Psi}^{-1} (\mathbf v - \mathbf{Fh} - \mathbf c))$$<br>The equation above is the likelihood of $\mathbf h$. To complete the Bayesian model, we need the prior on $\mathbf h$, $p(\mathbf h)$, so that we can write down the posterior $p(\mathbf h \mid \mathbf v) \propto p(\mathbf h) p(\mathbf v \mid \mathbf h)$.</p>
-<p>A convenient choice for prior is a Gaussian:<br>$$p(\mathbf h) = N(\mathbf h; \mathbf 0, \mathbf I) \propto exp(-\mathbf h^T \mathbf h / 2)$$</p>
-<p>In this way,<br>$$p(\mathbf v) = \int p(\mathbf v| \mathbf h)p(\mathbf h)d\mathbf h$$<br>$p(\mathbf v|\mathbf h)$ and $p(\mathbf h)$ are both Gaussian distributions, so their product is also Gaussian distribution. The marginal of a joint Gaussian distribution is also a Gaussian, so $p(\mathbf v)$ is Gaussian. To determine a Gaussian, we only need the mean and the covariance.<br>$$E[\mathbf v] = E[\mathbf{F} \mathbf{h} + \mathbf{c} + \vec \epsilon] = E[\mathbf {Fh}] + E[\mathbf c] + E[\vec \epsilon] = \mathbf c$$<br>$$cov[\mathbf v] = cov[\mathbf{Fh} + \mathbf{c} + \vec \epsilon] = cov[\mathbf{Fh}] + cov[\mathbf c] + cov[\vec \epsilon] = \mathbf{FF}^T + \mathbf \Psi$$</p>
-<p>So $p(\mathbf v) = N(\mathbf v; \mathbf c, \mathbf{FF}^T + \mathbf \Psi)$</p>
-<p>We can use correlated latent variables by letting the covariance of $\mathbf h$ be $\mathbf C$ (a full-covariance matrix) rather than $\mathbf I$. This seems like more expressive because there are more parameters. However, it is acutally the same as the one above, because the correlated part will be absorbed into the loading matrix $\mathbf F$. Proof is as follows:</p>
-<p>Assume the new model is:<br>$$p(\mathbf h) = N(\mathbf h; \mathbf 0, \mathbf C) \ p(\mathbf v \mid \mathbf h) = N(\mathbf v; \mathbf F \mathbf h + \mathbf c, \mathbf \Psi)$$</p>
-<p>$cov[\mathbf v]= \mathbf{FCF}^T + \mathbf \Psi$</p>
+        <p>My notes of dependency parsing from NLU course.</p>
+<a id="more"></a>
+<p>For a projective dependency tree, it can be described as a context-free grammar.<br>Projective dependency tree means that there is no cross between any two edges.</p>
+<h1 id="Graph-based-dependency-parsing-as-tagging"><a href="#Graph-based-dependency-parsing-as-tagging" class="headerlink" title="Graph-based dependency parsing as tagging"></a>Graph-based dependency parsing as tagging</h1><p><strong>Goal</strong>: find the highest scoring dependency tree in the space of all possible trees for a sentence.</p>
+<p>Since each word has exactly one parent, this is like a tagging problem. But when we solve this tagging problem, we need to think about the constraint of tree that there is no cycle.</p>
+<p>The score of a dependency edge (i,j) is a function s(i,j). Then the score of a dependency tree <strong>y</strong> for sentence <strong>x</strong> is:</p>
+<p>$$s(\mathbf x, \mathbf y) = \sum_{(i,j)\in \mathbf y}s(i,j)$$</p>
+<p>Our task is to find the highest score for a given sentence <strong>x</strong>.<br>This task can be achieved using the following approach:</p>
+<ul>
+<li>start with a totally connected graph</li>
+<li>find the maximum spanning tree</li>
+<li>use Chu-Liu-Edmonds to find it in $O(n^2)$, but it is not guaranteed to be projective</li>
+</ul>
+<p>Chu-Liu-Edmonds (CLE) algorithms:</p>
+<ul>
+<li>each node $j$ in the graph greedily selects the incoming edge with the highest score $s(i,j)$</li>
+<li>If a tree result, it is the maximum spanning tree. If not, there must be a cycle.</li>
+<li>Identify the cycle and contract it into a single node and recalculate scores of incoming and outgoing edges.</li>
+<li>Then we greedily select edges again.</li>
+</ul>
+<p>The score function is some sort of softmax.</p>
+<h1 id="Shift-reduce"><a href="#Shift-reduce" class="headerlink" title="Shift-reduce"></a>Shift-reduce</h1><p>Another method is shift-reduce.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/03/Factor-Analysis/" data-id="cjg5lga9h0000pkyrth8sc0bv" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/17/Dependency-parsing/" data-id="cjg5lga9p0003pkyrjcp9i9tf" class="article-share-link">Teilen</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/">machine learning</a></li></ul>
-
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
-      <div class="article-nav-title">
-        
-          Hill-climbing search for Bayesian network structure learning
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/04/02/timeline/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/04/17/Eligibility-traces/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Älter</strong>
-      <div class="article-nav-title">Timeline</div>
+      <div class="article-nav-title">Eligibility traces</div>
     </a>
   
 </nav>

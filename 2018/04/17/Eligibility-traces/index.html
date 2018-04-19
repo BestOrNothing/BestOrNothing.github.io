@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+
+  
+  <title>Eligibility traces | Zhensong Yan&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="My reading notes of Sutton’s book about eligibility traces.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Eligibility traces">
+<meta property="og:url" content="http://yoursite.com/2018/04/17/Eligibility-traces/index.html">
+<meta property="og:site_name" content="Zhensong Yan&#39;s Blog">
+<meta property="og:description" content="My reading notes of Sutton’s book about eligibility traces.">
+<meta property="og:image" content="http://yoursite.com/image/eligibility_traces/complex_backup.png">
+<meta property="og:image" content="http://yoursite.com/image/eligibility_traces/td_lambda.png">
+<meta property="og:image" content="http://yoursite.com/image/eligibility_traces/forward.png">
+<meta property="og:image" content="http://yoursite.com/image/eligibility_traces/eligibility_traces.png">
+<meta property="og:image" content="http://yoursite.com/image/eligibility_traces/backward.png">
+<meta property="og:updated_time" content="2018-04-18T21:18:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Eligibility traces">
+<meta name="twitter:description" content="My reading notes of Sutton’s book about eligibility traces.">
+<meta name="twitter:image" content="http://yoursite.com/image/eligibility_traces/complex_backup.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Zhensong Yan&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Zhensong Yan&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Eligibility-traces" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/17/Eligibility-traces/" class="article-date">
+  <time datetime="2018-04-17T13:34:42.000Z" itemprop="datePublished">2018-04-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Eligibility traces
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>My reading notes of Sutton’s book about eligibility traces. </p>
+<a id="more"></a>
+<p>Eligibility traces are one of the basic mechanisms of reinforcement learning. </p>
+<p>Backup can be done not only toward $n$-step return, but also toward any average of $n$-step returns. For example, a backup can be done toward a return that is half of a $2$-step return and half of a $4$-step return: $R_t^{avg}=\frac{1}{2}R_t^{(2)}+\frac{1}{2}R_t^{(4)}$</p>
+<p>A backup that averages simpler component backups in this way is called a <em>complex backup</em>, as shown in figure below. The sum of weights assigned to each backup must be summarized to 1.</p>
+<p><img src="/image/eligibility_traces/complex_backup.png" alt="Complex backup, consisting of two simpler backups"></p>
+<p>The figure below shows the backup of TD($\lambda$). From this figure we can see that if $\lambda=0$, TD($\lambda$) becomes TD(0) and only the first backup is left. If $\lambda=1$, only the last backup is left. In this case, if TD is done in forward view, it would become MC.</p>
+<p><img src="/image/eligibility_traces/td_lambda.png" alt=""></p>
+<p>The resulting backup is toward a return, called the $\lambda$-return, defined by</p>
+<p>$$R_t^\lambda = (1-\lambda)\sum_{n=1}^\infty\lambda^{n-1}R_t^{(n)}$$</p>
+<p>We define the $\lambda$-<em>return algorithm</em> as the algorithm that performs backups using the $\lambda$-return. On each step, it computes an increment, $\Delta V_t(s_t)$, to the value of the state occurring on that step</p>
+<p>$$\Delta V_t(s_t)=\alpha[R_t^\lambda - V_t(s_t)]$$</p>
+<p>The approach that we have been taking so far is forward view of a learning algorithm. The $\lambda$-return algorithm is the basis for the forward view of eligibility traces as used in the TD($\lambda$) method. In fact, the $\lambda$-return algorithm is the TD($\lambda$) algorithm in the off-line case. The figure below shows the forward view TD.</p>
+<p><img src="/image/eligibility_traces/forward.png" alt="The forward view. We decide how to update each state by looking forward to future rewards and states."></p>
+<h1 id="The-Backward-View-of-TD-lambda"><a href="#The-Backward-View-of-TD-lambda" class="headerlink" title="The Backward View of TD($\lambda$)"></a>The Backward View of TD($\lambda$)</h1><p>The backward view is simple conceptually and computationally. In the backward view, there is an additional memory variable associated with each state, its <em>eligibility traces</em>. The eligibility trace for state <em>s</em> is denoted by $e_t(s)\in R^+$. On each step, the eligibility traces for all states decay by $\gamma\lambda$, and the eligibility trace for the one state visited on the step is incremented by 1:</p>
+<p>$$e_t(s)=\gamma\lambda e_{t-1}(s)\ if\ s\neq s_t$$</p>
+<p>$$e_t(s)=\gamma\lambda e_{t-1}(s)+1\ if\ s= s_t$$</p>
+<p>Here $\gamma$ is the discount rate and $\lambda$ is the parameter introduced previously. This kind of eligibility trace is called an <em>accumulating trace</em> because it accumulates each time the state is visited, then fade away gradually when the state is not visited, as illustrated below:<br><img src="/image/eligibility_traces/eligibility_traces.png" alt=""></p>
+<p>The eligibility traces record which states have been visited recently. The higher the eligibility traces, the more recent the corresponding states. The traces are said to indicate the degree to which each state is eligible for undergoing learning changes should a reinforcing event occur. </p>
+<p>The TD error for state-value prediction is:</p>
+<p>$$\delta_t=r_{t+1}+\gamma V_t(s_{t+1})-V_t(s_t)$$</p>
+<p>In the back ward view, the global TD error signal triggers proportional updates to all recently visited states, as signaled by their nonzero traces:</p>
+<p>$$\Delta V_t(s) = \alpha \delta_t e_t(s)$$</p>
+<p>The backward view of TD is oriented backward in time. At each moment we look at the current TD error and assign it backward to each prior state according to the state’s eligibility trace at that time. We might imagine ourselves riding along the stream of states, computing TD errors, and shouting them back to the previously visited states, as suggested by the figure below.</p>
+<p><img src="/image/eligibility_traces/backward.png" alt="Each update depends on the current TD error combined with traces of past events."></p>
+<p>If $\lambda=0$, then all traces are zero at $t$ except for the trace corresponding to $s_t$. Thus the TD becomes TD(0).</p>
+<p>If $\lambda=1$, then all traces decay only by $\gamma$ per step. This turns out to be just MC.</p>
+<p>TD(1) is a way of implementing MC algorithms that is more general that those presented earlier and that significantly increases their range of applicability. Whereas the earlier MC methods were limited to episodic tasks, TD(1) can be applied to discounted continuing tasks as well. Moreover, TD(1) can be performed incrementally and online. One disadvantage of MC methods is that they learn nothing from an episode until it is over. For example, if a MC control method does something that produces a very poor reward but does not end the episode, then the agent still has the tendency to take that action. On the other hand, if online TD does something poor, it can immediately learn it and alter its subsequent behaviors on the same episode.</p>
+<h1 id="Sarsa-lambda"><a href="#Sarsa-lambda" class="headerlink" title="Sarsa($\lambda$)"></a>Sarsa($\lambda$)</h1><p>In this section we show how eligibility traces can be combined with Sarsa in a straightfoward way to produce an on-policy TD control method. We call this version Sarsa($\lambda$).</p>
+<p>The idea is to apply the TD prediction method to state-action pairs rather than to states. So we replace $V_t(s_t)$ with $Q_t(s_t,a_t)$ and replace $e_t(s_t)$ with $e_t(s_t,a_t)$. The action-value function update becomes:</p>
+<p>$$Q_{t+1}(s,a) = Q_t(s,a) + \alpha\delta_t e_t(s,a)$$,<br>where $\delta_t = r_{t+1} + \gamma Q_{t}(s_{t+1},a_{t+1})-Q_t(s_t,a_t)$</p>
+<p>$$e_t(s,a)=\gamma\lambda e_{t-1}(s,a)\ if\ s\neq s_t$$</p>
+<p>$$e_t(s,a)=\gamma\lambda e_{t-1}(s,a)+1\ if\ s= s_t\ and\ a=a_t$$</p>
+<p>Note that Sarsa($\lambda$) is on-policy algorithms, meaning that it approximates $Q^\pi(s,a)$, the action values for the current policy, $\pi$, then improve the policy gradually based on the approximate values for the current policy.</p>
+<h1 id="Q-lambda"><a href="#Q-lambda" class="headerlink" title="Q($\lambda$)"></a>Q($\lambda$)</h1><p>There are two different methods. They are Warkins’s Q($\lambda$) and Peng’s Q($\lambda$).</p>
+<p>Recall that Q-learning is an off-policy method, meaning that the policy learned about need not be the same as the one used to select actions.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/17/Eligibility-traces/" data-id="cjg5lga9q0004pkyr2sptxjs7" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/17/Dependency-parsing/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          Dependency parsing
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/05/Anime/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Anime</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/">machine learning</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/machine-learning/" style="font-size: 10px;">machine learning</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/17/Dependency-parsing/">Dependency parsing</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/17/Eligibility-traces/">Eligibility traces</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/05/Anime/">Anime</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/05/Learning-the-structure-of-a-decision-network/">Learning the structure of a decision network</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/">Hill-climbing search for Bayesian network structure learning</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Zhensong Yan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>
