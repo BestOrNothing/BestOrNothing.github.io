@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+
+  
+  <title>RL revision | Zhensong Yan&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="My RL revision notes.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RL revision">
+<meta property="og:url" content="http://yoursite.com/2018/04/19/RL-revision/index.html">
+<meta property="og:site_name" content="Zhensong Yan&#39;s Blog">
+<meta property="og:description" content="My RL revision notes.">
+<meta property="og:image" content="http://yoursite.com/image/RL_revision/matrix_func.png">
+<meta property="og:updated_time" content="2018-04-20T20:26:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RL revision">
+<meta name="twitter:description" content="My RL revision notes.">
+<meta name="twitter:image" content="http://yoursite.com/image/RL_revision/matrix_func.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Zhensong Yan&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Zhensong Yan&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-RL-revision" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/19/RL-revision/" class="article-date">
+  <time datetime="2018-04-19T09:37:01.000Z" itemprop="datePublished">2018-04-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      RL revision
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>My RL revision notes.</p>
+<a id="more"></a>
+<h1 id="Generally"><a href="#Generally" class="headerlink" title="Generally"></a>Generally</h1><ul>
+<li>What are the following?<ul>
+<li>action space: the space of possible actions.</li>
+<li>state space: all possible states.</li>
+<li>transition function: Given a state $s$ and an action $a$, the probability of each possible next state $s’$.</li>
+<li>reward function: Given a state $s$ and an action $a$, the expected reward of the next reward.</li>
+<li>discount factor: $\gamma$.</li>
+<li>policy: a distribution over actions.</li>
+<li>return: the sum of all the rewards from the current time step.</li>
+<li>value function: state-value, expected return; action-value, the expected return after taking action $a$.</li>
+</ul>
+</li>
+<li>Explain the Markov Property (with equations and conceptually).<ul>
+<li>The next state and action only depends on the current state and action.</li>
+<li>$Pr[s_{t+1}=s’,r_{t+1}=r\mid s_t,a_t,r_t,…,r_1,s_0,a_0] = Pr[s_{t+1}=s’,r_{t+1}=r\mid s_t,a_t]$</li>
+</ul>
+</li>
+<li>What does it mean to evaluate a policy? Equivalently, what is the goal of Policy Evaluation? Or what is the RL prediction task?<ul>
+<li>Evaluate state-value and action-value. </li>
+</ul>
+</li>
+<li>What is the Reinforcement Learning (RL) control problem?<ul>
+<li>Find the optimal policy.</li>
+</ul>
+</li>
+<li>Write a reward or transition function in matrix format.<ul>
+<li><img src="/image/RL_revision/matrix_func.png" alt=""></li>
+</ul>
+</li>
+<li>Draw a transition graph.</li>
+<li>Write a policy in matrix format.</li>
+<li>Execute a given policy on paper.</li>
+<li>What are the differences between episodic and continuing tasks, and what role does the discount factor play in either of them?<ul>
+<li>Episodic tasks have absorbing state, which means it has end. In episodic tasks, there is no discount factor. In continuing tasks, the discount factor prevents it from infinite return.</li>
+</ul>
+</li>
+<li>What is an absorbing/terminating state and what is the return from such a state?<ul>
+<li>The return is 0.</li>
+</ul>
+</li>
+<li>Explain the formulas defining the state (V ) and action (Q) value functions.</li>
+<li>Explain the Bellman Equations, and the Bellman Optimality Equations, for V and Q.<ul>
+<li>$V^\pi(s)=\sum_a \pi(s,a)\sum_{s’}P^a_{s,s’}[R^a_{s,s’}+\gamma V_\pi(s’)]$</li>
+<li>$V^*(s) = \max_\pi V_\pi(s)$ for all $s\in S$</li>
+<li>$Q^*(s,a)=\max_\pi Q_\pi(s,a)$, for all $s\in S$ and $a\in A$.</li>
+</ul>
+</li>
+<li>Give the relation between V and Q under different conditions (stochastic versus deterministic policy, optimal versus non-optimal policy).<ul>
+<li>stochastic vs. deterministic: for stochastic, $V^\pi(s)=\sum_a \pi(s,a)Q^\pi(s,a)$, otherwise, $V^\pi(s)=Q^\pi(s,a)$.</li>
+<li>optimal vs. non-optimal: for optimal, $V^<em>(s)=\max_{a\in A(s)}Q^{\pi^</em>}(s,a)$</li>
+</ul>
+</li>
+</ul>
+<h1 id="Semi-MDPs-and-Options"><a href="#Semi-MDPs-and-Options" class="headerlink" title="Semi-MDPs and Options"></a>Semi-MDPs and Options</h1><ul>
+<li>Explain the concept of Reward Shaping.<ul>
+<li>Add rewards or penalties for achieving sub-goals/errors. Add progress estimator. Add intermediate rewards will potentially allow RL to handle more complex problems.</li>
+</ul>
+</li>
+<li>Main problem with reward shaping is that it changes the problem solved.</li>
+<li>What is a Semi-MDP (SMDP)?<ul>
+<li>A generalization of MDPs: The amount of time between one decision and the next is a random variable.</li>
+<li>It is defined in terms of:<ul>
+<li>$P(s’,\tau\mid s,a)$, transition probability ($\tau$ is the waiting time)</li>
+<li>$R(s,a)$, reward, amount expected to accumulate during waiting time, $\tau$, in particular state and action.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>For SMDPs, the Markov assumption holds at states -when- a decision is made. The Markov assumption does not necessarily hold in-between time-steps.</li>
+<li>The time between decisions can be discrete or continuous.</li>
+<li>Explain the Bellman Equations for SMDPs.<ul>
+<li>Bellman equation can be then written as $V^<em>(s) = \max_{a\in A_s} [r + \sum_{s’,\tau}\gamma^\tau P(s’,\tau\mid s,a)V^</em>(s’)]$. We need to sum over waiting time.</li>
+<li>The equation for action value can be written down as: $Q^<em>(s,a) = r + \sum_{s’,\tau}\gamma^\tau P(s’,\tau\mid s,a)\max_{a’\in A_s}Q^</em>(s’,a’)$</li>
+<li>So dynamic programming can be naturally extended to SMDP as well.</li>
+</ul>
+</li>
+<li>We can run DP, MC, and TD algorithms on SMDPs with few changes.</li>
+<li><p>write the Q-Learning update for a discrete time SMDP</p>
+<ul>
+<li><p>Consider the standard Q-learning algorithm, rewritten slightly in the following form:</p>
+<p>$$Q_{k+1}(s,a) = (1-\alpha_k)Q_k(s,a)+\alpha_k[r+\gamma\max_{a’\in A_s}Q_k(s’,a’)]$$</p>
+</li>
+<li><p>Modify the equation above:</p>
+<p>$$Q_{k+1}(s,a) = (1-\alpha_k)Q_k(s,a)+\alpha_k[r_{t+1}+\gamma r_{t+2}+…+\gamma^{\tau-1}r_{t+\tau}+\gamma^\tau\max_{a’\in A_s}Q_k(s’,a’)]$$</p>
+</li>
+</ul>
+</li>
+<li>Explain the role of $\epsilon^{-l\tau}$ for continuous time SMDPs.<ul>
+<li>discount factor</li>
+</ul>
+</li>
+<li>Explain the concept of Options (motivation)<ul>
+<li>Add temporally extended activities to choices available to RL agent, without precluding planning and learning at finer grained MDP level</li>
+<li>Optimal policies over primitives are not compromised due to addition of options. However, if an option is useful, learning will quickly find this out – prevent prolonged and useless ‘flailing about’</li>
+</ul>
+</li>
+<li>Define Options<ul>
+<li>An option is a behavior defined in terms of: $o={I_o,\pi_o,\beta_o}$</li>
+<li>$I_o$: Set of states in which $o$ can be initiated.</li>
+<li>$\pi_o(s)$: Policy when $o$ is executing.</li>
+<li>$\beta_o(s)$: Probability that $o$ terminates in $s$.</li>
+<li>If the current state is $s$, the next action $a$ is selected with probability $\pi(s,a)$, the environment makes a transition to state $s’$, where the option either terminates with probability $\beta(s’)$ or else continues, determining the next action $a’$ with probability $\pi(s’,a’)$ and so on.</li>
+</ul>
+</li>
+<li>Given a deterministic policy over options, and their definitions, write out the state-action trajectory as if the policy was being executed.</li>
+<li>Give an example of a hierarchy of options.</li>
+<li>Given a problem description, suggest a hierarchy of options.</li>
+<li>We can learn optimal policies over options, but these are only optimal given the constraints the options impose on behavior. Procedures over SMDPs have the same guarantees as over MDPs, but with solutions con- strained by the options.</li>
+<li>Given the definition of an option, and a set of states, answer questions such as:<ul>
+<li>Can the option terminate in this state?</li>
+<li>Can the option be initiated in this state?</li>
+</ul>
+</li>
+<li>How do options define an SMDP?<ul>
+<li>Option + MDP = SMDP</li>
+</ul>
+</li>
+<li>Bellman Equations for Options<ul>
+<li>$V_O^<em>(s)=\max_{p\in O_s}E[r+\gamma^k V_O^</em>(s’)\mid \epsilon(o,s)]$</li>
+</ul>
+</li>
+<li>Options are a good way of introducing hierarchies to RL problems.</li>
+</ul>
+<h1 id="Partially-Observable-MDPs"><a href="#Partially-Observable-MDPs" class="headerlink" title="Partially Observable MDPs"></a>Partially Observable MDPs</h1><ul>
+<li>What dose partial observability mean in the context of RL?<ul>
+<li>We don’t observe the whole state. The agent only knows a part of the current state. </li>
+</ul>
+</li>
+<li>Explain what a belief state is.<ul>
+<li>Since the state is not observable, the agent has to make its decisions based on the belief state which is a <strong>posterior distribution over states</strong>.</li>
+</ul>
+</li>
+<li>Give and explain the Bellman Equations for POMDPs.<ul>
+<li>Let $b$ be the belief of the agent about the state under consideration.</li>
+<li>$V_T(b) = \gamma \max_u [r(b,u)+\int V_{T-1}(b’)p(b’\mid u,b)db’]$</li>
+</ul>
+</li>
+<li>Compute the value of a belief state given the state value function.<ul>
+<li>Same as above.</li>
+</ul>
+</li>
+<li>The main problem with POMDPs is that the value function is defined over probability distributions.</li>
+<li>For finite worlds (state, action, measurement spaces, observations, finite horizons), we can represent the value function as a piece-wise linear function.</li>
+<li><p>Given a POMDP model, a current belief state, and an observation, compute the posterior belief state.</p>
+<ul>
+<li><p>Use Bayesian theorem. Assuming given a belief state $x_1$ and an observation $z_1$.</p>
+<p>$$p(x_1\mid z_1) = \frac{p(z_1\mid x_1)p(x_1)}{p(z_1)}$$</p>
+</li>
+</ul>
+</li>
+<li>Read a piece-wise linear value function graph.</li>
+<li>Explain the concept of ”pruning” and its necessity for POMDP Value Iteration.<ul>
+<li>Some functions are not worthy considering because they are less than others at any point.</li>
+<li>Because the number of linear components increase exponentially, pruning is very necessary.</li>
+</ul>
+</li>
+<li>Given a small POMDP problem, and a belief state, give an optimal policy for a short horizon (possibly implicitly defined by terminating/absorbing states).</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/19/RL-revision/" data-id="cjg9deiyy00083ayrpi07139m" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/19/Semantic-role-labelling/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          Semantic role labelling
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/17/Dependency-parsing/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Dependency parsing</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/machine-learning/">machine learning</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/machine-learning/" style="font-size: 10px;">machine learning</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/19/Semantic-role-labelling/">Semantic role labelling</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/19/RL-revision/">RL revision</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/17/Dependency-parsing/">Dependency parsing</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/17/Eligibility-traces/">Eligibility traces</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/05/Anime/">Anime</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Zhensong Yan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

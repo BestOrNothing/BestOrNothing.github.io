@@ -5,18 +5,18 @@
   
 
   
-  <title>Dependency parsing | Zhensong Yan&#39;s Blog</title>
+  <title>Semantic role labelling | Zhensong Yan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="My notes of dependency parsing from NLU course.">
+  <meta name="description" content="Parsing breaks up sentences into meaningful parts or finds meaningful relationships, which can then feed into downstream semantic tasks:  semantic role labelling  semantic parsing word sense disambig">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Dependency parsing">
-<meta property="og:url" content="http://yoursite.com/2018/04/17/Dependency-parsing/index.html">
+<meta property="og:title" content="Semantic role labelling">
+<meta property="og:url" content="http://yoursite.com/2018/04/19/Semantic-role-labelling/index.html">
 <meta property="og:site_name" content="Zhensong Yan&#39;s Blog">
-<meta property="og:description" content="My notes of dependency parsing from NLU course.">
-<meta property="og:updated_time" content="2018-04-17T20:58:11.000Z">
+<meta property="og:description" content="Parsing breaks up sentences into meaningful parts or finds meaningful relationships, which can then feed into downstream semantic tasks:  semantic role labelling  semantic parsing word sense disambig">
+<meta property="og:updated_time" content="2018-04-19T18:33:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dependency parsing">
-<meta name="twitter:description" content="My notes of dependency parsing from NLU course.">
+<meta name="twitter:title" content="Semantic role labelling">
+<meta name="twitter:description" content="Parsing breaks up sentences into meaningful parts or finds meaningful relationships, which can then feed into downstream semantic tasks:  semantic role labelling  semantic parsing word sense disambig">
   
     <link rel="alternate" href="/atom.xml" title="Zhensong Yan&#39;s Blog" type="application/atom+xml">
   
@@ -63,10 +63,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Dependency-parsing" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Semantic-role-labelling" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/04/17/Dependency-parsing/" class="article-date">
-  <time datetime="2018-04-17T19:24:07.000Z" itemprop="datePublished">2018-04-17</time>
+    <a href="/2018/04/19/Semantic-role-labelling/" class="article-date">
+  <time datetime="2018-04-19T17:57:04.000Z" itemprop="datePublished">2018-04-19</time>
 </a>
     
   </div>
@@ -77,7 +77,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Dependency parsing
+      Semantic role labelling
     </h1>
   
 
@@ -85,33 +85,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>My notes of dependency parsing from NLU course.</p>
-<a id="more"></a>
-<p>For a projective dependency tree, it can be described as a context-free grammar.<br>Projective dependency tree means that there is no cross between any two edges.</p>
-<h1 id="Graph-based-dependency-parsing-as-tagging"><a href="#Graph-based-dependency-parsing-as-tagging" class="headerlink" title="Graph-based dependency parsing as tagging"></a>Graph-based dependency parsing as tagging</h1><p><strong>Goal</strong>: find the highest scoring dependency tree in the space of all possible trees for a sentence.</p>
-<p>Since each word has exactly one parent, this is like a tagging problem. But when we solve this tagging problem, we need to think about the constraint of tree that there is no cycle.</p>
-<p>The score of a dependency edge (i,j) is a function s(i,j). Then the score of a dependency tree <strong>y</strong> for sentence <strong>x</strong> is:</p>
-<p>$$s(\mathbf x, \mathbf y) = \sum_{(i,j)\in \mathbf y}s(i,j)$$</p>
-<p>Our task is to find the highest score for a given sentence <strong>x</strong>.<br>This task can be achieved using the following approach:</p>
+        <a id="more"></a>
+<p>Parsing breaks up sentences into meaningful parts or finds meaningful relationships, which can then feed into downstream semantic tasks:</p>
 <ul>
-<li>start with a totally connected graph</li>
-<li>find the maximum spanning tree</li>
-<li>use Chu-Liu-Edmonds to find it in $O(n^2)$, but it is not guaranteed to be projective</li>
+<li>semantic role labelling </li>
+<li>semantic parsing</li>
+<li>word sense disambiguation</li>
+<li>compositional semantics</li>
 </ul>
-<p>Chu-Liu-Edmonds (CLE) algorithms:</p>
-<ul>
-<li>each node $j$ in the graph greedily selects the incoming edge with the highest score $s(i,j)$</li>
-<li>If a tree result, it is the maximum spanning tree. If not, there must be a cycle.</li>
-<li>Identify the cycle and contract it into a single node and recalculate scores of incoming and outgoing edges.</li>
-<li>Then we greedily select edges again.</li>
-</ul>
-<p>The score function is some sort of softmax.</p>
-<h1 id="Shift-reduce"><a href="#Shift-reduce" class="headerlink" title="Shift-reduce"></a>Shift-reduce</h1><p>Another method is shift-reduce.</p>
+<p>In this blog, we will see semantic role labelling.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/17/Dependency-parsing/" data-id="cjg9deiyp00023ayrhttfij2m" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/19/Semantic-role-labelling/" data-id="cjg9deiz3000c3ayr3rtf0e3x" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -120,19 +107,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/04/19/RL-revision/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
-      <div class="article-nav-title">
-        
-          RL revision
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/04/17/Eligibility-traces/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/04/19/RL-revision/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Älter</strong>
-      <div class="article-nav-title">Eligibility traces</div>
+      <div class="article-nav-title">RL revision</div>
     </a>
   
 </nav>
