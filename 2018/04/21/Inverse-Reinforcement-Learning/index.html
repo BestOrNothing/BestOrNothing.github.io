@@ -5,14 +5,18 @@
   
 
   
-  <title>Tag: machine learning | Zhensong Yan&#39;s Blog</title>
+  <title>Inverse Reinforcement Learning | Zhensong Yan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zhensong Yan&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/machine-learning/index.html">
+  <meta name="description" content="Given observations of agent’s behavior over time, find out how reward is distributed. The goal is to find a set of possible rewards such that an observed policy $\pi$ is optimal. Mathematically, $$E[">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Inverse Reinforcement Learning">
+<meta property="og:url" content="http://yoursite.com/2018/04/21/Inverse-Reinforcement-Learning/index.html">
 <meta property="og:site_name" content="Zhensong Yan&#39;s Blog">
+<meta property="og:description" content="Given observations of agent’s behavior over time, find out how reward is distributed. The goal is to find a set of possible rewards such that an observed policy $\pi$ is optimal. Mathematically, $$E[">
+<meta property="og:updated_time" content="2018-04-21T15:16:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zhensong Yan&#39;s Blog">
+<meta name="twitter:title" content="Inverse Reinforcement Learning">
+<meta name="twitter:description" content="Given observations of agent’s behavior over time, find out how reward is distributed. The goal is to find a set of possible rewards such that an observed policy $\pi$ is optimal. Mathematically, $$E[">
   
     <link rel="alternate" href="/atom.xml" title="Zhensong Yan&#39;s Blog" type="application/atom+xml">
   
@@ -59,59 +63,74 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/" class="archive-article-date">
-  <time datetime="2018-04-04T20:16:57.000Z" itemprop="datePublished">Apr 4</time>
+        <section id="main"><article id="post-Inverse-Reinforcement-Learning" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/21/Inverse-Reinforcement-Learning/" class="article-date">
+  <time datetime="2018-04-21T13:15:00.000Z" itemprop="datePublished">2018-04-21</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/">Hill-climbing search for Bayesian network structure learning</a>
+    <h1 class="article-title" itemprop="name">
+      Inverse Reinforcement Learning
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/04/03/Factor-Analysis/" class="archive-article-date">
-  <time datetime="2018-04-03T14:43:22.000Z" itemprop="datePublished">Apr 3</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/03/Factor-Analysis/">Factor Analysis</a>
-    </h1>
-  
+        <a id="more"></a>
+<p>Given observations of agent’s behavior over time, find out how reward is distributed.</p>
+<p>The goal is to find a set of possible rewards such that an observed policy $\pi$ is optimal.</p>
+<p>Mathematically,</p>
+<p>$$E[\sum_{t=0}^\infty \gamma^t \hat R(s_t)\mid \pi^*] \ge E[\sum_{t=0}^\infty \gamma^t \hat R(s_t)\mid \pi],\forall\pi$$.</p>
+<p>However, the optimal policy $\pi^*$ is only given to us in terms of the trajectories, so we need to take the average in place of expectation.</p>
+<p>Then we need to write the value in terms of reward. We begin with Bellman equation, </p>
+<p>$$V^\pi(s) = r + \gamma\sum_{s’}P^a_{ss’}V^\pi(s’)$$</p>
+<p>Write this in matrix form and move terms around to express reward as</p>
+<p>$$R = (I-\gamma P^a)V^\pi$$</p>
+<p>Therefore,</p>
+<p>$$V^\pi=(I-\gamma P^a)^{-1}R$$</p>
+<p>The state value is $Q^\pi(s,a) = R(s) + \gamma \sum_{s’}P^a_{ss’}V^\pi(s’)$, and the condition for $\pi$ being an optimal policy is $\pi(s) \in \arg \max_{a\in A} Q^\pi(s,a)$. We substitute the former into the latter and if the optimal policy is a single action $a_1$. Then we have $a_1=\arg \max_{a\in A}\sum_{s’}P^a_{ss’}V^\pi(s’)$. This implies $\sum_{s’}P^{a_1}<em>{ss’}V^\pi(s’) \ge \sum</em>{s’}P^{a}_{ss’}V^\pi(s’), \forall a\in A\backslash a_1,s\in S$.</p>
+<p>Write the equation above as matrix form:</p>
+<p>$$P^{a_1}V^\pi \ge P^{a}V^\pi, \forall a\in A$$</p>
+<p>Therefore,</p>
+<p>$$P^{a_1}(I-\gamma P^a)^{-1}R \ge P^{a}(I-\gamma P^a)^{-1}R, \forall a\in A$$</p>
+<p>$$(P^{a_1}-p^a)(I-\gamma P^a)^{-1}R \ge 0, \forall a\in A$$</p>
+<p>So the equation is the constraint of the optimal policy, i.e. satisfying the inequality can give the solution of optimal policy.</p>
+<p>We have two aims: 1) find a solution satisfying the inequality. 2) maximize the difference between the best policy and the second best policy.</p>
+<p>Therefore we need to solve:</p>
+<p>$$maximize \sum_{i=1}^N \min_{a\in A\backslash a_1}{(P_{a_1}(i)-P_a(i))(I-\gamma P_{a_1})^{-1}R}-\lambda||R||_1$$</p>
+<p>$$s.t. (P_{a_1}-P_a)(I-\gamma P_{a_1})^{-1}R\ge 0, \forall a\in A\backslash a_1$$</p>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/21/Inverse-Reinforcement-Learning/" data-id="cjgm40ssj0008xoyrn22mc44f" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/04/19/Semantic-role-labelling/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Semantic role labelling</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         

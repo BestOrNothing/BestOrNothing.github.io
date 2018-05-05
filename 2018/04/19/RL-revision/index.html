@@ -13,12 +13,13 @@
 <meta property="og:url" content="http://yoursite.com/2018/04/19/RL-revision/index.html">
 <meta property="og:site_name" content="Zhensong Yan&#39;s Blog">
 <meta property="og:description" content="My RL revision notes.">
-<meta property="og:image" content="http://yoursite.com/image/RL_revision/matrix_func.png">
-<meta property="og:updated_time" content="2018-04-20T20:26:22.000Z">
+<meta property="og:image" content="http://yoursite.com/2018/04/19/image/RL_revision/matrix_func.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/19/image/RL_revision/shapley.png">
+<meta property="og:updated_time" content="2018-04-30T10:44:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RL revision">
 <meta name="twitter:description" content="My RL revision notes.">
-<meta name="twitter:image" content="http://yoursite.com/image/RL_revision/matrix_func.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/19/image/RL_revision/matrix_func.png">
   
     <link rel="alternate" href="/atom.xml" title="Zhensong Yan&#39;s Blog" type="application/atom+xml">
   
@@ -115,7 +116,7 @@
 </ul>
 </li>
 <li>Write a reward or transition function in matrix format.<ul>
-<li><img src="/image/RL_revision/matrix_func.png" alt=""></li>
+<li><img src="../image/RL_revision/matrix_func.png" alt=""></li>
 </ul>
 </li>
 <li>Draw a transition graph.</li>
@@ -131,14 +132,212 @@
 </li>
 <li>Explain the formulas defining the state (V ) and action (Q) value functions.</li>
 <li>Explain the Bellman Equations, and the Bellman Optimality Equations, for V and Q.<ul>
-<li>$V^\pi(s)=\sum_a \pi(s,a)\sum_{s’}P^a_{s,s’}[R^a_{s,s’}+\gamma V_\pi(s’)]$</li>
-<li>$V^*(s) = \max_\pi V_\pi(s)$ for all $s\in S$</li>
-<li>$Q^*(s,a)=\max_\pi Q_\pi(s,a)$, for all $s\in S$ and $a\in A$.</li>
+<li>$V^\pi(s)=\sum_a \pi(s,a)\sum_{s’}P^a_{s,s’}[R^a_{s,s’}+\gamma V^\pi(s’)]$</li>
+<li>$V^*(s) = \max_\pi V^\pi(s)$ for all $s\in S$</li>
+<li>$V^<em>(s) = \max_a\sum_{s’}P^a_{ss’}[R^a_{ss’}+\gamma V^</em>(s’)]$</li>
+<li>$Q^*(s,a)=\max_\pi Q^\pi(s,a)$, for all $s\in S$ and $a\in A$.</li>
+<li>$Q^<em>(s,a)=\sum_{s’}P^a_{ss’}[R^a_{ss’}+\gamma\max_{a’}Q^</em>(s’,a’)]$</li>
 </ul>
 </li>
 <li>Give the relation between V and Q under different conditions (stochastic versus deterministic policy, optimal versus non-optimal policy).<ul>
 <li>stochastic vs. deterministic: for stochastic, $V^\pi(s)=\sum_a \pi(s,a)Q^\pi(s,a)$, otherwise, $V^\pi(s)=Q^\pi(s,a)$.</li>
 <li>optimal vs. non-optimal: for optimal, $V^<em>(s)=\max_{a\in A(s)}Q^{\pi^</em>}(s,a)$</li>
+</ul>
+</li>
+<li>Value functions are defined for a specific policy.</li>
+<li>There exists a unique solution to the Bellman equations.</li>
+<li>What do we mean by ’tabular’ RL?<ul>
+<li>The value can be obtained by looking up table.</li>
+</ul>
+</li>
+<li>What does it mean for an RL algorithm to be model-based or model-free?<ul>
+<li>model-based: DP</li>
+<li>model-free: MC, TD</li>
+</ul>
+</li>
+<li>For the tabular case, and if we known the model, we can solve the Bellman Equations as a linear programming problem of |S| number of equations and unknowns (where |S| is the number of states).</li>
+<li>What is a backup operation in the context of RL?<ul>
+<li>The operation transfers value information back to a state from its successor states.</li>
+</ul>
+</li>
+<li>What is a ”full backup”?<ul>
+<li>All the next states are backed up.</li>
+</ul>
+</li>
+<li>Explain the impact of the learning rate, generally and specifically for the tabular case.<ul>
+<li>If learning rate is too large, the algorithm won’t converge. If it is too small, the algorithm will learn very slowly and possibly get stuck in the local minimum.</li>
+</ul>
+</li>
+<li>What is ”sampling”?<ul>
+<li>Generate an episode using the current policy.</li>
+</ul>
+</li>
+<li>What does it mean to ”bootstrap”?<ul>
+<li>Generating estimates from other estimates.</li>
+</ul>
+</li>
+<li>A Markov Decision Process (MDP) with a defined policy defines a Markov Chain (what is a Markov Chain?).<ul>
+<li>Markov Chain does not have action.</li>
+</ul>
+</li>
+<li>Explain the concept of Generalised Policy Iteration (GPI).<ul>
+<li>Policy evaluation</li>
+<li>Policy improvement</li>
+</ul>
+</li>
+<li>Are any GPI algorithms guarantee to converge to an optimal policy? No.</li>
+<li>Model a described problem as an MDP/SMDP/POMDP, identify what if any information is missing or ill-specified, and assume values for any missing info such that they are consistent with the problem. Explain those assumptions in terms of how a learned policy would behave online.</li>
+<li>Explain the Difference between Temporal Difference (TD), TD($\lambda$), Monte Carlo, and Dynamic Programming, with the use of backup diagrams.</li>
+<li>Why would you use?<ul>
+<li>Dynamic Programming</li>
+<li>Monte Carlo</li>
+<li>Temporal Difference</li>
+</ul>
+</li>
+<li>What algorithms are guaranteed to converge and under what conditions?</li>
+<li>Given the description of a problem, pick an algorithm to solve it, and argue for your choice, while still pointing out any negatives.</li>
+<li>Can we generally define an optimal policy if we are given the respective state-value function?</li>
+</ul>
+<h1 id="Dynamic-programming"><a href="#Dynamic-programming" class="headerlink" title="Dynamic programming"></a>Dynamic programming</h1><ul>
+<li>Dynamic Programming algorithms are model-based.</li>
+<li>Understand Iterative Policy Evaluation in detail and be able to explain it and run a few steps.</li>
+<li><p>Explain the Policy Improvement Theorem.</p>
+<ul>
+<li><p>Let $\pi$ and $\pi’$ be any pair of deterministic policies such that </p>
+<p>$$Q^\pi(s,\pi’(s))\ge V^\pi(s), \forall s\in S$$</p>
+</li>
+<li>Then the policy $\pi’$ must be as good as, or better than, $\pi$.</li>
+</ul>
+</li>
+<li>Do a policy improvement step (greedy or $\epsilon$-greedy).</li>
+<li>Understand Policy Iteration Iteration in detail and be able to explain it and run a few steps.<ul>
+<li>Policy evaluation</li>
+<li>Policy improvement procedure by looking one step ahead (find $\arg \max_a$). </li>
+</ul>
+</li>
+<li><p>Understand Value Iteration in detail and be able to explain it and run a few steps.</p>
+<p>  $$V_{k+1}(s)=\max_a E[r_{r+1}+\gamma V_k(s_{t+1})\mid s_t=s,a_t=a]=\max_a\sum_{s’}P^a_{ss’}[R^a_{ss’}+\gamma V_k(s’)]$$</p>
+</li>
+<li>Explain how Value Iteration relates to Policy Iteration.<ul>
+<li>Value iteration effectively combines one sweep of policy evaluation and one sweep of policy improvement in each of its sweeps.</li>
+</ul>
+</li>
+<li>Explain Asynchronous Dynamic Programming. Recognise an example algorithm as being an instance of Asynchronous Dynamic Programming.<ul>
+<li>Update values in any order.<h1 id="Monte-Carlo"><a href="#Monte-Carlo" class="headerlink" title="Monte Carlo"></a>Monte Carlo</h1></li>
+</ul>
+</li>
+<li>Monte Carlo (MC) RL is model-free.</li>
+<li>MC RL does not bootstrap.</li>
+<li>MC uses samples from real-world experience or simulation.</li>
+<li>Though a ”simulator” is a model, it does not necessarily explicitly define a transition and reward function (which is what we are concerned with when calling a procedure ”model-free” or ”model-based”).</li>
+<li>Explain the difference between first and every visit MC. Given a set of trajectories, produce the samples under either method.<ul>
+<li>first visit method average the returns at the first time encountering a state in the episode.</li>
+</ul>
+</li>
+<li>Given one or more sampled trajectories, execute a requested MC algorithm for prediction or control.</li>
+<li>Explain the idea behind exploring starts.<ul>
+<li>When evaluating action-value, many state action pairs are not visited. So we explore starts to make sure we can visit those states.</li>
+</ul>
+</li>
+<li>Explain MC control as an instantiation of Generalised Policy Iteration.</li>
+<li>Infinite Sampling and Exploring All States are not realistic assumptions in most real applications.</li>
+<li>Explain the concepts of on-policy and off-policy.<ul>
+<li>On-policy methods estimate the value of a policy while using it for control</li>
+<li>In off-policy methods, these two functions are separated. The <em>behavior policy</em> is unrelated to the policy (<em>estimation policy</em>) that is evaluated and improved. An advantage of this separation is that the estimation policy may be deterministic, while the behavior policy can continue to sample all possible actions.</li>
+</ul>
+</li>
+<li>Explain $\epsilon$-greedy action selection/policies.<ul>
+<li>With probability $\epsilon$, we choose the next action greedily. With probability $1-\epsilon$, we choose the next action at random.</li>
+</ul>
+</li>
+<li>Do a step of policy improvement for an $\epsilon$-greedy policy.</li>
+<li>Understand On-Policy MC Control in detail and be able to explain it and run a few steps (given example trajectories).</li>
+<li>Understand On-Policy MC Control in detail and be able to explain it and run a few steps (given example trajectories).</li>
+<li>What are the Estimation and Behaviour policies, in the context of an off-policy RL algorithm?<ul>
+<li>see above</li>
+</ul>
+</li>
+<li>Understand the incremental implementation of Off-Policy MC control.</li>
+<li>Different ways to achieve exploration in MC (and RL in general):<ul>
+<li>on-policy that still explores</li>
+<li>off-policy (decoupling exploration from evaluation)</li>
+<li>exploring starts</li>
+</ul>
+</li>
+<li>Understand MC sample-averaging as learning rate.</li>
+<li>MC is more robust towards violations of the Markov assumption, since it doesn’t bootstrap.<h1 id="Temporal-difference"><a href="#Temporal-difference" class="headerlink" title="Temporal difference"></a>Temporal difference</h1></li>
+<li>TD learning does not require a model.</li>
+<li>TD learning bootstraps.</li>
+<li>Understand TD(0) in detail and be able to explain it and run a few steps.</li>
+<li>What is the ”target” of an update procedure/backup?</li>
+<li>Why might TD converge faster than MC? (It moves towards a better estimate that takes transitions into account, or it bootstraps. MC better matches the training data).</li>
+<li>Explain on-policy and off-policy TD control differences.<ul>
+<li>on-policy: backup the value of the next action</li>
+<li>off-policy: backup the maximal value of the next action but do not necessarily take it (with probability $1-\epsilon$ take the next action at random, which causes danger (eg. cliff walking)).</li>
+</ul>
+</li>
+<li>Understand SARSA in detail and be able to explain it and run a few steps (given example trajectories).</li>
+<li>Understand Q-Learning in detail and be able to explain it and run a few steps (given example trajectories).</li>
+<li>Explain the difference between the on-line performance of SARSA and Q-Learning (with or without an example application).<ul>
+<li>Q-learning directly learns the optimal policy.</li>
+<li>Q-learning (and off-policy learning in general) has higher per-sample variance than SARSA.</li>
+<li>SARSA is more conservative.</li>
+<li>In practice the last point can make a big difference if mistakes are costly - e.g. you are training a robot not in simulation, but in the real world. You may prefer a more conservative learning algorithm that avoids high risk, if there was real time and money at stake if the robot was damaged.<br>*If your goal is to train an optimal agent in simulation, or in a low-cost and fast-iterating environment, then Q-learning is a good choice, due to the first point (learning optimal policy directly). If your agent learns online, and you care about rewards gained whilst learning, then SARSA may be a better choice.<h1 id="Eligibility-traces"><a href="#Eligibility-traces" class="headerlink" title="Eligibility traces"></a>Eligibility traces</h1></li>
+</ul>
+</li>
+<li>Compute an n-step return (also show in backup diagram).</li>
+<li><em>n</em>-step return when episode ends in less than <em>n + 1</em> steps is full return.</li>
+<li>Understand n-step TD evaluation (this is not TD($\lambda$)!!) in detail and be able to explain it and run a few steps (given example trajectories).</li>
+<li>Explain complex backups, and give an example.</li>
+<li>Explain the formula for $\lambda$-return.<ul>
+<li>$R_t^\lambda = (1-\lambda)\sum_{n=1}^\infty\lambda^{n-1}R_t^{(n)}$</li>
+</ul>
+</li>
+<li>Understand the $\lambda$-return algorithm in detail and be able to explain it and run a few steps (given example trajectories).</li>
+<li>$\lambda$-return is not typically called TD($\lambda$).</li>
+<li>What is the main problem with the $\lambda$-return algorithm (and n-step TD)?<ul>
+<li>it is off-line. The disadvantage of off-line algorithm. During the episode, if something bad happened, the agent cannot learn it.</li>
+</ul>
+</li>
+<li>Explain the relation between the forward and backward view of TD($\lambda$).<ul>
+<li>They are actually doing the same job, but forward view updates the current state-value in terms of the future state. Backward view updates all the previous state-values when at the current state.</li>
+</ul>
+</li>
+<li>explain the concept of eligibility traces.<ul>
+<li>it measures the recency of a state.</li>
+</ul>
+</li>
+<li>Iteratively update the eligibility traces of states given a sampled trajectory.</li>
+<li>Explain the $\lambda$ parameter, and compare it with the discount factor.<ul>
+<li>P. 172. trace-decay</li>
+</ul>
+</li>
+<li>Understand SARSA($\lambda$) in detail and be able to explain it and run a few steps (given example trajectories).</li>
+<li>What is the difficulty with implementing Q($\lambda$)?<ul>
+<li>not sure. P. 189?</li>
+</ul>
+</li>
+</ul>
+<h1 id="Function-approximation"><a href="#Function-approximation" class="headerlink" title="Function approximation"></a>Function approximation</h1><ul>
+<li>Explain the concept of Function Approximation for value functions in RL.<ul>
+<li>Function approximation is an instance of supervised learning.</li>
+<li>state features and parameters together come up with a prediction</li>
+</ul>
+</li>
+<li>What are some reasons why we might choose to use function approximation in RL?<ul>
+<li>Large state space.</li>
+</ul>
+</li>
+<li>Given the description of an RL problem, suggest a set of features to describe states with.</li>
+<li>Given the representation of a linear value function as weights, and a state vector, compute the value function at that state.</li>
+<li>Give and explain the general formula for doing backups with function approximation.</li>
+<li>Do an update given a target, a proposed RL algorithm, and a linear representation of the value function.</li>
+<li>TD and MC can be applied to RL problems with function approximation, as long as we can compute or estimate partial derivatives of the value function over the approximate value function parameters.</li>
+<li>The MC solution is gradient descent.</li>
+<li>The TD solution approximates/is like gradient descent.</li>
+<li>Explain the concept of Coarse Coding.<ul>
+<li>P. 202</li>
+<li>like one-hot encoding, the state is in which circle, and then which circle is labelled as one.</li>
 </ul>
 </li>
 </ul>
@@ -151,7 +350,7 @@
 <li>What is a Semi-MDP (SMDP)?<ul>
 <li>A generalization of MDPs: The amount of time between one decision and the next is a random variable.</li>
 <li>It is defined in terms of:<ul>
-<li>$P(s’,\tau\mid s,a)$, transition probability ($\tau$ is the waiting time)</li>
+<li>$P(s’,\tau\mid s,a)$, transition probability ($\tau$ is the waiting time between one decision and the next one)</li>
 <li>$R(s,a)$, reward, amount expected to accumulate during waiting time, $\tau$, in particular state and action.</li>
 </ul>
 </li>
@@ -160,8 +359,8 @@
 <li>For SMDPs, the Markov assumption holds at states -when- a decision is made. The Markov assumption does not necessarily hold in-between time-steps.</li>
 <li>The time between decisions can be discrete or continuous.</li>
 <li>Explain the Bellman Equations for SMDPs.<ul>
-<li>Bellman equation can be then written as $V^<em>(s) = \max_{a\in A_s} [r + \sum_{s’,\tau}\gamma^\tau P(s’,\tau\mid s,a)V^</em>(s’)]$. We need to sum over waiting time.</li>
-<li>The equation for action value can be written down as: $Q^<em>(s,a) = r + \sum_{s’,\tau}\gamma^\tau P(s’,\tau\mid s,a)\max_{a’\in A_s}Q^</em>(s’,a’)$</li>
+<li>Bellman equation can be then written as $V^<em>(s) = \max_{a\in A_s} [R(s,a) + \sum_{s’,\tau}\gamma^\tau P(s’,\tau\mid s,a)V^</em>(s’)]$. We need to sum over waiting time.</li>
+<li>The equation for action value can be written down as: $Q^<em>(s,a) = R(s,a) + \sum_{s’,\tau}\gamma^\tau P(s’,\tau\mid s,a)\max_{a’\in A_s}Q^</em>(s’,a’)$</li>
 <li>So dynamic programming can be naturally extended to SMDP as well.</li>
 </ul>
 </li>
@@ -207,7 +406,9 @@
 </ul>
 </li>
 <li>Bellman Equations for Options<ul>
-<li>$V_O^<em>(s)=\max_{p\in O_s}E[r+\gamma^k V_O^</em>(s’)\mid \epsilon(o,s)]$</li>
+<li>$V_O^<em>(s)=\max_{o\in O_s}E[r+\gamma^k V_O^</em>(s’)\mid \epsilon(o,s)]$</li>
+<li>(from the paper) $V^<em><em>O(s)=\max</em>{o\in O_s}[R(s,o)+\sum_{s’}P(s’\mid s,o)V^</em>_O(s’)]$</li>
+<li>(from the paper) $Q^<em><em>O(s,o)=R(s,o)+\sum</em>{s’}P(s’\mid s,o)\max_{o’\in O_{s’}}Q^</em>_o(s’,o’)$</li>
 </ul>
 </li>
 <li>Options are a good way of introducing hierarchies to RL problems.</li>
@@ -247,11 +448,59 @@
 </li>
 <li>Given a small POMDP problem, and a belief state, give an optimal policy for a short horizon (possibly implicitly defined by terminating/absorbing states).</li>
 </ul>
+<h1 id="Inverse-Reinforcement-Learning"><a href="#Inverse-Reinforcement-Learning" class="headerlink" title="Inverse Reinforcement Learning"></a>Inverse Reinforcement Learning</h1><ul>
+<li>We can use supervised learning to learn a policy directly, by using observations of an agent’s behaviour (i.e. trajectories). This is ”Behavioural Cloning”.</li>
+<li>Explain the concept of Inverse RL (IRL).<ul>
+<li>Given the observations, we need to determine the rewards.</li>
+</ul>
+</li>
+<li>Why might we choose to do IRL instead of Behavioural Cloning?<ul>
+<li>Problem with behavioral cloning: agent is inflexible, cannot change goals. Also, such a policy would perform poorly when more than present state is needed in order to perform (e.g., when environment is mildly non-Markovian due to context).</li>
+</ul>
+</li>
+<li>We can solve the IRL problem, given an observed trajectory or a policy, by formulating a linear program:<ul>
+<li>Explain the tabular-case formulation.</li>
+<li>Explain the linear function approximation case formulation.</li>
+</ul>
+</li>
+<li>There are multiple reward functions that can explain a given behaviour (trajectory or policy), so the linear programs include constraints to produce something more intuitive/useful. Explain how different requirements inform our linear program objective function (maximum difference on Q, and normalisation).<ul>
+<li>maximum difference means we want the optimal policy as good as possible.</li>
+<li>normalization means we do not want rewards to be too large.</li>
+</ul>
+</li>
+<li>Why do we need a model for formulating the linear function approximation linear program?<ul>
+<li>Because in real life state space sometimes is too large to be enumerated.</li>
+</ul>
+</li>
+</ul>
+<h1 id="Multi-agent-RL"><a href="#Multi-agent-RL" class="headerlink" title="Multi-agent RL"></a>Multi-agent RL</h1><ul>
+<li>Read and write payoff matrices for 2-player games.</li>
+<li>What are zero-sum and fully cooperative games?<ul>
+<li>zero-sum: the sum of two agents’ payoffs is zero (constant payoff).</li>
+<li>fully cooperative: payoffs are the same (common payoff).</li>
+</ul>
+</li>
+<li>Understand and explain pure and mixed strategies.<ul>
+<li>pure strategies: select an action</li>
+<li>mixed strategies: select an action according to some probability distribution.</li>
+</ul>
+</li>
+<li>Define a Stochastic Game.<ul>
+<li>A stochastic game is a tuple $(n,S,A_{1…n},T,R_{1…n})$</li>
+</ul>
+</li>
+<li>Explain Shapley’s [1953] Value Iteration algorithm.<ul>
+<li><img src="../image/RL_revision/shapley.png" alt=""></li>
+<li>Function value returns the expected value of playing the matrix game’s equilibrium.</li>
+</ul>
+</li>
+<li>Given a problem description of an iterative zero-sum game, and a description of the current state, compute an optimal policy for your agent using minimax search.</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/19/RL-revision/" data-id="cjg9deiyy00083ayrpi07139m" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/19/RL-revision/" data-id="cjgm40ssi0007xoyrkrt8gfn0" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -323,6 +572,10 @@
       <ul>
         
           <li>
+            <a href="/2018/04/21/Inverse-Reinforcement-Learning/">Inverse Reinforcement Learning</a>
+          </li>
+        
+          <li>
             <a href="/2018/04/19/Semantic-role-labelling/">Semantic role labelling</a>
           </li>
         
@@ -336,10 +589,6 @@
         
           <li>
             <a href="/2018/04/17/Eligibility-traces/">Eligibility traces</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/05/Anime/">Anime</a>
           </li>
         
       </ul>

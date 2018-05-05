@@ -61,6 +61,65 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Inverse-Reinforcement-Learning" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/21/Inverse-Reinforcement-Learning/" class="article-date">
+  <time datetime="2018-04-21T13:15:00.000Z" itemprop="datePublished">2018-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/21/Inverse-Reinforcement-Learning/">Inverse Reinforcement Learning</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+<p>Given observations of agent’s behavior over time, find out how reward is distributed.</p>
+<p>The goal is to find a set of possible rewards such that an observed policy $\pi$ is optimal.</p>
+<p>Mathematically,</p>
+<p>$$E[\sum_{t=0}^\infty \gamma^t \hat R(s_t)\mid \pi^*] \ge E[\sum_{t=0}^\infty \gamma^t \hat R(s_t)\mid \pi],\forall\pi$$.</p>
+<p>However, the optimal policy $\pi^*$ is only given to us in terms of the trajectories, so we need to take the average in place of expectation.</p>
+<p>Then we need to write the value in terms of reward. We begin with Bellman equation, </p>
+<p>$$V^\pi(s) = r + \gamma\sum_{s’}P^a_{ss’}V^\pi(s’)$$</p>
+<p>Write this in matrix form and move terms around to express reward as</p>
+<p>$$R = (I-\gamma P^a)V^\pi$$</p>
+<p>Therefore,</p>
+<p>$$V^\pi=(I-\gamma P^a)^{-1}R$$</p>
+<p>The state value is $Q^\pi(s,a) = R(s) + \gamma \sum_{s’}P^a_{ss’}V^\pi(s’)$, and the condition for $\pi$ being an optimal policy is $\pi(s) \in \arg \max_{a\in A} Q^\pi(s,a)$. We substitute the former into the latter and if the optimal policy is a single action $a_1$. Then we have $a_1=\arg \max_{a\in A}\sum_{s’}P^a_{ss’}V^\pi(s’)$. This implies $\sum_{s’}P^{a_1}<em>{ss’}V^\pi(s’) \ge \sum</em>{s’}P^{a}_{ss’}V^\pi(s’), \forall a\in A\backslash a_1,s\in S$.</p>
+<p>Write the equation above as matrix form:</p>
+<p>$$P^{a_1}V^\pi \ge P^{a}V^\pi, \forall a\in A$$</p>
+<p>Therefore,</p>
+<p>$$P^{a_1}(I-\gamma P^a)^{-1}R \ge P^{a}(I-\gamma P^a)^{-1}R, \forall a\in A$$</p>
+<p>$$(P^{a_1}-p^a)(I-\gamma P^a)^{-1}R \ge 0, \forall a\in A$$</p>
+<p>So the equation is the constraint of the optimal policy, i.e. satisfying the inequality can give the solution of optimal policy.</p>
+<p>We have two aims: 1) find a solution satisfying the inequality. 2) maximize the difference between the best policy and the second best policy.</p>
+<p>Therefore we need to solve:</p>
+<p>$$maximize \sum_{i=1}^N \min_{a\in A\backslash a_1}{(P_{a_1}(i)-P_a(i))(I-\gamma P_{a_1})^{-1}R}-\lambda||R||_1$$</p>
+<p>$$s.t. (P_{a_1}-P_a)(I-\gamma P_{a_1})^{-1}R\ge 0, \forall a\in A\backslash a_1$$</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/21/Inverse-Reinforcement-Learning/" data-id="cjgm40ssj0008xoyrn22mc44f" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Semantic-role-labelling" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/04/19/Semantic-role-labelling/" class="article-date">
@@ -96,7 +155,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/19/Semantic-role-labelling/" data-id="cjg9deiz3000c3ayr3rtf0e3x" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/19/Semantic-role-labelling/" data-id="cjgm40ssp000cxoyr3xls6rht" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -137,7 +196,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/19/RL-revision/" data-id="cjg9deiyy00083ayrpi07139m" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/19/RL-revision/" data-id="cjgm40ssi0007xoyrkrt8gfn0" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -178,7 +237,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/17/Dependency-parsing/" data-id="cjg9deiyp00023ayrhttfij2m" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/17/Dependency-parsing/" data-id="cjgm40ss80002xoyrfhobi3hq" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -219,7 +278,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/17/Eligibility-traces/" data-id="cjg9deiyw00063ayr8jo0r34c" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/17/Eligibility-traces/" data-id="cjgm40ssb0003xoyrourkwefm" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -260,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/05/Anime/" data-id="cjg9deiyk00003ayr8qubfaqv" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/05/Anime/" data-id="cjgm40ss30000xoyr5fh0v1rn" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -301,7 +360,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/05/Learning-the-structure-of-a-decision-network/" data-id="cjg9deiyx00073ayrmdjda02v" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/05/Learning-the-structure-of-a-decision-network/" data-id="cjgm40ssm0009xoyry3yin6sn" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -342,7 +401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/" data-id="cjg9deiys00043ayrx4uq417v" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/04/Hill-climbing-search-for-Bayesian-network-structure-learning/" data-id="cjgm40sse0005xoyryyhgqing" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/">machine learning</a></li></ul>
@@ -385,7 +444,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/03/Factor-Analysis/" data-id="cjg9deiyr00033ayrfdk7e7jl" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/03/Factor-Analysis/" data-id="cjgm40ssc0004xoyr100t9ndo" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/">machine learning</a></li></ul>
@@ -428,7 +487,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/02/timeline/" data-id="cjg9deiz2000b3ayr2133ki6q" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/04/02/timeline/" data-id="cjgm40ssr000dxoyrqmuhof99" class="article-share-link">Teilen</a>
       
       
     </footer>
@@ -483,6 +542,10 @@
       <ul>
         
           <li>
+            <a href="/2018/04/21/Inverse-Reinforcement-Learning/">Inverse Reinforcement Learning</a>
+          </li>
+        
+          <li>
             <a href="/2018/04/19/Semantic-role-labelling/">Semantic role labelling</a>
           </li>
         
@@ -496,10 +559,6 @@
         
           <li>
             <a href="/2018/04/17/Eligibility-traces/">Eligibility traces</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/05/Anime/">Anime</a>
           </li>
         
       </ul>
